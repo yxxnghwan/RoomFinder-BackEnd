@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -92,4 +94,22 @@ public class AccountController {
 		
 		return loginAccount;
 	}
+	
+	
+	@GetMapping("/{email}")
+	public AccountVO getAccount(HttpServletRequest request, HttpServletResponse response, @PathVariable("email") String email) {
+		AccountVO account = new AccountVO();
+		account.setEmail(email);
+		account = accountService.getAccount(account);
+		if(account.getAccount_type().equals("user")) {
+			account = accountService.getUser(account);
+			account.setAccount_type("user");
+		} else if(account.getAccount_type().equals("store")) {
+			account = accountService.getStore(account);
+			account.setAccount_type("store");
+		}
+		
+		return account;
+	}
+	
 }
