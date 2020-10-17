@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTDMapper3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+	<mapper namespace="com.roomfinder.mapper.AccountMapper">
+		<insert id="insertAccount" parameterType="com.roomfinder.vo.AccountVO">
+			INSERT INTO ACCOUNT(email, password, account_type)
+			VALUES(#{email}, #{password}, #{account_type})
+		</insert>
+	
+		<insert id="insertUser" parameterType="com.roomfinder.vo.UserVO">
+			INSERT INTO USER(email, phone, user_name)
+			VALUES(#{email}, #{phone}, #{user_name})
+		</insert>
+		
+		<insert id="insertStore" parameterType="com.roomfinder.vo.StoreVO">
+			INSERT INTO STORE(email, store_name, company_id, address_line, description, store_representing_image_res)
+			VALUES(#{email}, #{store_name}, #{company_id}, #{address_line}, #{description}, #{store_representing_image_res})
+		</insert>
+		
+		<select id="getAccount" parameterType="com.roomfinder.vo.AccountVO" resultType="com.roomfinder.vo.AccountVO">
+			SELECT * FROM ACCOUNT
+			WHERE email = #{email}
+		</select>
+		
+		<select id="getUser" parameterType="com.roomfinder.vo.AccountVO" resultType="com.roomfinder.vo.UserVO">
+			SELECT * FROM USER
+			WHERE email = #{email}
+		</select>
+		
+		<select id="getStore" parameterType="com.roomfinder.vo.AccountVO" resultType="com.roomfinder.vo.StoreVO">
+			SELECT * FROM STORE
+			WHERE email = #{email}
+		</select>
+	</mapper>
