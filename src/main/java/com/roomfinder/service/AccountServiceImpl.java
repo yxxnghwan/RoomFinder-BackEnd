@@ -1,5 +1,7 @@
 package com.roomfinder.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -50,4 +52,15 @@ public class AccountServiceImpl implements AccountService{
 		return accountMapper.getStore(vo);
 	}
 	
+	@Override
+	public List<UserVO> getUserList() {
+		// TODO Auto-generated method stub
+		return accountMapper.getUserList();
+	}
+	
+	@Override
+	public List<StoreVO> getStoreList() {
+		// TODO Auto-generated method stub
+		return accountMapper.getStoreList();
+	}
 }

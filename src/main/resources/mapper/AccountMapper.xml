@@ -33,4 +33,12 @@
 			SELECT * FROM STORE
 			WHERE email = #{email}
 		</select>
+		
+		<select id="getUserList" resultType="com.roomfinder.vo.UserVO">
+			SELECT * FROM USER
+		</select>
+		
+		<select id="getStoreList" resultType="com.roomfinder.vo.StoreVO">
+			SELECT * FROM STORE
+		</select>
 	</mapper>

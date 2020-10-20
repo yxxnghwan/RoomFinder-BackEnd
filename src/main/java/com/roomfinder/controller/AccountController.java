@@ -1,5 +1,8 @@
 package com.roomfinder.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -98,6 +101,7 @@ public class AccountController {
 	
 	@GetMapping("/{email}")
 	public AccountVO getAccount(HttpServletRequest request, HttpServletResponse response, @PathVariable("email") String email) {
+		System.out.println("getAccount 요청");
 		AccountVO account = new AccountVO();
 		account.setEmail(email);
 		account = accountService.getAccount(account);
@@ -110,6 +114,31 @@ public class AccountController {
 		}
 		
 		return account;
+	}
+	
+	@GetMapping("/list/{account_type}")
+	public List<AccountVO> getAccountTypeList(HttpServletRequest request, HttpServletResponse response, @PathVariable("account_type") String account_type) {
+		System.out.println("getAccountTypeList 요청");
+		List<AccountVO> resultList = null;
+		if(account_type.equals("user")) {
+			ArrayList<AccountVO> tmpList = new ArrayList<>();
+			List<UserVO> userList = accountService.getUserList();
+			for(UserVO user : userList) {
+				user.setAccount_type("user");
+				tmpList.add(user);
+			}
+			resultList = tmpList;
+		} else if(account_type.equals("store")) {
+			ArrayList<AccountVO> tmpList = new ArrayList<>();
+			List<StoreVO> storeList = accountService.getStoreList();
+			for(StoreVO store : storeList) {
+				store.setAccount_type("store");
+				tmpList.add(store);
+			}
+			resultList = tmpList;
+		}
+		
+		return resultList;
 	}
 	
 }

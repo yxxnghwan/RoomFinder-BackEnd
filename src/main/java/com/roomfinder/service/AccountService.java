@@ -1,6 +1,8 @@
 package com.roomfinder.service;
 
 
+import java.util.List;
+
 import com.roomfinder.vo.AccountVO;
 import com.roomfinder.vo.StoreVO;
 import com.roomfinder.vo.UserVO;
@@ -15,7 +17,8 @@ public interface AccountService {
 	public AccountVO getAccount(AccountVO vo);
 	public UserVO getUser(AccountVO vo);
 	public StoreVO getStore(AccountVO vo);
-	
+	public List<UserVO> getUserList();
+	public List<StoreVO> getStoreList();
 	
 	//U
 	

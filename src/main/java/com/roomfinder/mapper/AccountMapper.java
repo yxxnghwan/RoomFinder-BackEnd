@@ -1,5 +1,7 @@
 package com.roomfinder.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.roomfinder.vo.AccountVO;
@@ -18,7 +20,8 @@ public interface AccountMapper {
 	public AccountVO getAccount(AccountVO vo);
 	public UserVO getUser(AccountVO vo);
 	public StoreVO getStore(AccountVO vo);
-	
+	public List<UserVO> getUserList();
+	public List<StoreVO> getStoreList();
 	
 	//U
 	
