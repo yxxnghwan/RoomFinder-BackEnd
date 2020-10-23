@@ -29,6 +29,7 @@ public class SignInFilter implements Filter{
 		System.out.println("로그인 필터링 진행중...");
 		allowedToSignInAPIs.add(new APIClass("/api/accounts/password", "PATCH"));
 		allowedToSignInAPIs.add(new APIClass("/api/accounts/phone", "PATCH"));
+		allowedToSignInAPIs.add(new APIClass("/api/accounts/username", "PATCH"));
 		
 
 		HttpServletRequest request = (HttpServletRequest) req;

@@ -75,4 +75,10 @@ public class AccountServiceImpl implements AccountService{
 		// TODO Auto-generated method stub
 		accountMapper.updatePhone(vo);
 	}
+	
+	@Override
+	public void updateUserName(UserVO vo) {
+		// TODO Auto-generated method stub
+		accountMapper.updateUserName(vo);
+	}
 }

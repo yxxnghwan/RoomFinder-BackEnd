@@ -187,10 +187,10 @@ public class AccountController {
 		System.out.println(vo);
 		AccountVO account = (AccountVO)request.getAttribute("account");
 		if(account.getEmail().equals(vo.getEmail())) { // 로그인 된 본인이면
-			accountService.updatePhone(vo);
+			accountService.updateUserName(vo);
 			response.setStatus(HttpStatus.OK.value());
 		} else {
-			System.out.println("본인만 폰번호 바꾸기 가능");
+			System.out.println("본인만 유저이름 바꾸기 가능");
 			response.setStatus(HttpStatus.UNAUTHORIZED.value());
 		}
 	}
