@@ -19,17 +19,17 @@
 			VALUES(#{email}, #{store_name}, #{company_id}, #{address_line}, #{description}, #{store_representing_image_res})
 		</insert>
 		
-		<select id="getAccount" parameterType="com.roomfinder.vo.AccountVO" resultType="com.roomfinder.vo.AccountVO">
+		<select id="getAccount" parameterType="String" resultType="com.roomfinder.vo.AccountVO">
 			SELECT * FROM ACCOUNT
 			WHERE email = #{email}
 		</select>
 		
-		<select id="getUser" parameterType="com.roomfinder.vo.AccountVO" resultType="com.roomfinder.vo.UserVO">
+		<select id="getUser" parameterType="String" resultType="com.roomfinder.vo.UserVO">
 			SELECT * FROM USER
 			WHERE email = #{email}
 		</select>
 		
-		<select id="getStore" parameterType="com.roomfinder.vo.AccountVO" resultType="com.roomfinder.vo.StoreVO">
+		<select id="getStore" parameterType="String" resultType="com.roomfinder.vo.StoreVO">
 			SELECT * FROM STORE
 			WHERE email = #{email}
 		</select>
@@ -41,4 +41,10 @@
 		<select id="getStoreList" resultType="com.roomfinder.vo.StoreVO">
 			SELECT * FROM STORE
 		</select>
+		
+		<update id="updatePassword" parameterType="com.roomfinder.vo.AccountVO">
+			UPDATE ACCOUNT
+			SET password = #{password}
+			WHERE email = #{email}
+		</update>
 	</mapper>

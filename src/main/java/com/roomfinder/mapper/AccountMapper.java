@@ -17,13 +17,14 @@ public interface AccountMapper {
 	public void insertStore(StoreVO vo);
 	
 	//R
-	public AccountVO getAccount(AccountVO vo);
-	public UserVO getUser(AccountVO vo);
-	public StoreVO getStore(AccountVO vo);
+	public AccountVO getAccount(String email);
+	public UserVO getUser(String email);
+	public StoreVO getStore(String email);
 	public List<UserVO> getUserList();
 	public List<StoreVO> getStoreList();
 	
 	//U
+	public void updatePassword(AccountVO vo);
 	
 	
 	

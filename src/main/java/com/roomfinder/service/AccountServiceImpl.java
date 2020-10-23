@@ -35,21 +35,21 @@ public class AccountServiceImpl implements AccountService{
 	}
 	
 	@Override
-	public AccountVO getAccount(AccountVO vo) {
+	public AccountVO getAccount(String email) {
 		// TODO Auto-generated method stub
-		return accountMapper.getAccount(vo);
+		return accountMapper.getAccount(email);
 	}
 	
 	@Override
-	public UserVO getUser(AccountVO vo) {
+	public UserVO getUser(String email) {
 		// TODO Auto-generated method stub
-		return accountMapper.getUser(vo);
+		return accountMapper.getUser(email);
 	}
 	
 	@Override
-	public StoreVO getStore(AccountVO vo) {
+	public StoreVO getStore(String email) {
 		// TODO Auto-generated method stub
-		return accountMapper.getStore(vo);
+		return accountMapper.getStore(email);
 	}
 	
 	@Override
@@ -62,5 +62,11 @@ public class AccountServiceImpl implements AccountService{
 	public List<StoreVO> getStoreList() {
 		// TODO Auto-generated method stub
 		return accountMapper.getStoreList();
+	}
+	
+	@Override
+	public void updatePassword(AccountVO vo) {
+		// TODO Auto-generated method stub
+		accountMapper.updatePassword(vo);
 	}
 }

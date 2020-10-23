@@ -27,17 +27,8 @@ public class SignInFilter implements Filter{
 			throws IOException, ServletException {
 		// TODO Auto-generated method stub
 		System.out.println("로그인 필터링 진행중...");
-		allowedToSignInAPIs.add(new APIClass("/accounts/protector", "POST"));
-		allowedToSignInAPIs.add(new APIClass("/accounts/manager", "PUT"));
-		allowedToSignInAPIs.add(new APIClass("/accounts/user", "PUT"));
-		allowedToSignInAPIs.add(new APIClass("/accounts/protector", "PUT"));
-		allowedToSignInAPIs.add(new APIClass("/accounts/password", "PATCH"));
-		allowedToSignInAPIs.add(new APIClass("/accounts", "DELETE"));
-		allowedToSignInAPIs.add(new APIClass("/emergency", "POST"));
-		allowedToSignInAPIs.add(new APIClass("/emergency/complete", "PATCH"));
-		allowedToSignInAPIs.add(new APIClass("/emergency/failure", "PATCH"));
-		allowedToSignInAPIs.add(new APIClass("/help", "POST"));
-		allowedToSignInAPIs.add(new APIClass("/help/complete", "PATCH"));
+		allowedToSignInAPIs.add(new APIClass("/api/accounts/password", "PATCH"));
+		
 
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) res;
