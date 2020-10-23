@@ -28,6 +28,7 @@ public class SignInFilter implements Filter{
 		// TODO Auto-generated method stub
 		System.out.println("로그인 필터링 진행중...");
 		allowedToSignInAPIs.add(new APIClass("/api/accounts/password", "PATCH"));
+		allowedToSignInAPIs.add(new APIClass("/api/accounts/phone", "PATCH"));
 		
 
 		HttpServletRequest request = (HttpServletRequest) req;

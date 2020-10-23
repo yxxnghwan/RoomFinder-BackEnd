@@ -47,4 +47,10 @@
 			SET password = #{password}
 			WHERE email = #{email}
 		</update>
+		
+		<update id="updatePhone" parameterType="com.roomfinder.vo.UserVO">
+			UPDATE USER
+			SET phone = #{phone}
+			WHERE email = #{email}
+		</update>
 	</mapper>

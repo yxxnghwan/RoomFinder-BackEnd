@@ -68,7 +68,7 @@ public class AccountController {
 	}
 	
 	/** 로그인 토큰 발급 API */
-	@PostMapping("auth")
+	@PostMapping("/auth")
 	public AccountVO auth(HttpServletRequest request, HttpServletResponse response, @RequestBody AccountVO vo) {
 		System.out.println("auth 요청");
 		System.out.println(vo);
@@ -150,7 +150,7 @@ public class AccountController {
 	}
 	
 	/** 비밀번호 변경 API */
-	@PatchMapping("password")
+	@PatchMapping("/password")
 	public void patchPassword(HttpServletRequest request, HttpServletResponse response, @RequestBody AccountVO vo) {
 		System.out.println("patchPassword 요청");
 		System.out.println(vo);
@@ -161,6 +161,36 @@ public class AccountController {
 			response.setStatus(HttpStatus.OK.value());
 		} else {
 			System.out.println("본인만 비번 바꾸기 가능");
+			response.setStatus(HttpStatus.UNAUTHORIZED.value());
+		}
+	}
+	
+	/** 사용자 핸드폰 번호 변경 API */
+	@PatchMapping("/phone")
+	public void patchPhone(HttpServletRequest request, HttpServletResponse response, @RequestBody UserVO vo) {
+		System.out.println("patchPhone 요청");
+		System.out.println(vo);
+		AccountVO account = (AccountVO)request.getAttribute("account");
+		if(account.getEmail().equals(vo.getEmail())) { // 로그인 된 본인이면
+			accountService.updatePhone(vo);
+			response.setStatus(HttpStatus.OK.value());
+		} else {
+			System.out.println("본인만 폰번호 바꾸기 가능");
+			response.setStatus(HttpStatus.UNAUTHORIZED.value());
+		}
+	}
+	
+	/** 사용자 이름 변경 API */
+	@PatchMapping("/username")
+	public void patchUserName(HttpServletRequest request, HttpServletResponse response, @RequestBody UserVO vo) {
+		System.out.println("patchUserName 요청");
+		System.out.println(vo);
+		AccountVO account = (AccountVO)request.getAttribute("account");
+		if(account.getEmail().equals(vo.getEmail())) { // 로그인 된 본인이면
+			accountService.updatePhone(vo);
+			response.setStatus(HttpStatus.OK.value());
+		} else {
+			System.out.println("본인만 폰번호 바꾸기 가능");
 			response.setStatus(HttpStatus.UNAUTHORIZED.value());
 		}
 	}
