@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTDMapper3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+	<mapper namespace="com.roomfinder.mapper.StoreMapper">
+		<insert id="insertStoreImage" parameterType="com.roomfinder.vo.StoreImageVO">
+			INSERT INTO STORE_IMAGE(store_image_res, store_email)
+			values(#{store_image_res}, #{store_email})
+		</insert>
+	</mapper>
