@@ -1,11 +1,14 @@
 package com.roomfinder.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.roomfinder.service.StoreService;
 import com.roomfinder.vo.AccountVO;
 import com.roomfinder.vo.StoreImageVO;
+import com.roomfinder.vo.StoreVO;
 
 
 
@@ -36,5 +40,11 @@ public class StoreController {
 			System.out.println("본인만 이미지 추가 가능");
 			response.setStatus(HttpStatus.UNAUTHORIZED.value());
 		}
+	}
+	
+	@GetMapping("/list")
+	public List<StoreVO> getStoreList() {
+		System.out.println("getStoreList 요청");
+		return storeService.getStoreList();
 	}
 }

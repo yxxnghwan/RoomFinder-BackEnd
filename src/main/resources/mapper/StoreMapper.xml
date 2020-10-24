@@ -8,4 +8,8 @@
 			INSERT INTO STORE_IMAGE(store_image_res, store_email)
 			values(#{store_image_res}, #{store_email})
 		</insert>
+		
+		<select id="getStoreList" resultType="com.roomfinder.vo.StoreVO">
+			SELECT * FROM STORE
+		</select>
 	</mapper>
