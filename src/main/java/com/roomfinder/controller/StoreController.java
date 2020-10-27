@@ -32,6 +32,7 @@ public class StoreController {
 	@Autowired
 	StoreService storeService;
 	
+	/** 매장이미지 등록 */
 	@PostMapping("/image")
 	public void postImage(HttpServletRequest request, HttpServletResponse response, @RequestBody StoreImageVO vo) {
 		System.out.println("postImage 요청");
@@ -45,6 +46,7 @@ public class StoreController {
 		}
 	}
 	
+	/** 매장 전체 리스트 요청 */
 	@GetMapping("/list")
 	public List<StoreVO> getStoreList() {
 		System.out.println("getStoreList 요청");
@@ -86,4 +88,6 @@ public class StoreController {
 			response.setStatus(HttpStatus.UNAUTHORIZED.value());
 		}
 	}
+	
+	
 }
