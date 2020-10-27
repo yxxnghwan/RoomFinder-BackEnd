@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.roomfinder.mapper.StoreMapper;
+import com.roomfinder.vo.RoomVO;
 import com.roomfinder.vo.StoreImageVO;
 import com.roomfinder.vo.StoreVO;
 
@@ -43,5 +44,11 @@ public class StoreServiceImpl implements StoreService {
 	public StoreImageVO getStoreImage(int store_image_seq) {
 		// TODO Auto-generated method stub
 		return storeMapper.getStoreImage(store_image_seq);
+	}
+	
+	@Override
+	public void insertRoom(RoomVO vo) {
+		// TODO Auto-generated method stub
+		storeMapper.insertRoom(vo);
 	}
 }

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.roomfinder.service.StoreService;
 import com.roomfinder.vo.AccountVO;
+import com.roomfinder.vo.RoomVO;
 import com.roomfinder.vo.StoreImageVO;
 import com.roomfinder.vo.StoreVO;
 
@@ -89,5 +90,20 @@ public class StoreController {
 		}
 	}
 	
+	/** 스터디룸 등록 */
+	@PostMapping("/room")
+	public void postRoom(HttpServletRequest request, HttpServletResponse response, @RequestBody RoomVO vo) {
+		System.out.println("postRoom 요청");
+		AccountVO account = (AccountVO)request.getAttribute("account");
+		if(account.getEmail().equals(vo.getStore_email())) { // 로그인 된 본인이면	
+			
+			storeService.insertRoom(vo);
+			response.setStatus(HttpStatus.CREATED.value());
+			
+		} else {
+			System.out.println("본인만 매장 이미지 삭제 가능");
+			response.setStatus(HttpStatus.UNAUTHORIZED.value());
+		}
+	}
 	
 }

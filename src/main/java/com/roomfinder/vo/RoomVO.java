@@ -8,6 +8,6 @@ public @Data class RoomVO {
 	private int price_per_hour;
 	private String description;
 	private int capacity;
-	private String room_representing_imageRes;
+	private String room_representing_image_res;
 	private String store_email;
 }
