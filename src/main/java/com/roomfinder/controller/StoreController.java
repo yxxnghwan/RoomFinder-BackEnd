@@ -51,7 +51,7 @@ public class StoreController {
 	
 	/** 대표 이미지 추가  or 변경*/
 	@PutMapping("/representingimage")
-	public void putRepresentingImage(HttpServletRequest request, HttpServletResponse response, @RequestBody StoreVO vo) {
+	public void putStoreRepresentingImage(HttpServletRequest request, HttpServletResponse response, @RequestBody StoreVO vo) {
 		System.out.println("putRepresentingImage 요청");
 		AccountVO account = (AccountVO)request.getAttribute("account");
 		if(account.getEmail().equals(vo.getEmail())) { // 로그인 된 본인이면
