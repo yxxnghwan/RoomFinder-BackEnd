@@ -11,6 +11,6 @@ public interface StoreService {
 	//R
 	public List<StoreVO> getStoreList();
 	//U
-		
+	public void updateStoreRepresentingImage(StoreVO vo);
 	//D
 }

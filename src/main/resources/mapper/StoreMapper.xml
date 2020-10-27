@@ -12,4 +12,10 @@
 		<select id="getStoreList" resultType="com.roomfinder.vo.StoreVO">
 			SELECT * FROM STORE
 		</select>
+		
+		<update id="updateStoreRepresentingImage" parameterType="com.roomfinder.vo.StoreVO">
+			UPDATE STORE
+			SET store_representing_image_res = #{store_representing_image_res}
+			WHERE email = #{email}
+		</update>
 	</mapper>

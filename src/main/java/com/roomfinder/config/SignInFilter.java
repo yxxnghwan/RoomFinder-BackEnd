@@ -31,6 +31,7 @@ public class SignInFilter implements Filter{
 		allowedToSignInAPIs.add(new APIClass("/api/accounts/phone", "PATCH"));
 		allowedToSignInAPIs.add(new APIClass("/api/accounts/username", "PATCH"));
 		allowedToSignInAPIs.add(new APIClass("/api/store/image", "POST"));
+		allowedToSignInAPIs.add(new APIClass("/api/store/representingimage", "PUT"));
 		
 
 		HttpServletRequest request = (HttpServletRequest) req;
