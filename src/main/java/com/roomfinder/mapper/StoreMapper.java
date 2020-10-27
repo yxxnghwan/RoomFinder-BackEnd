@@ -14,7 +14,9 @@ public interface StoreMapper {
 	public void insertStoreImage(StoreImageVO vo);
 	//R
 	public List<StoreVO> getStoreList();
+	public StoreImageVO getStoreImage(int store_image_seq);
 	//U
 	public void updateStoreRepresentingImage(StoreVO vo);
 	//D
+	public void deleteStoreImage(StoreImageVO vo);
 }

@@ -32,4 +32,16 @@ public class StoreServiceImpl implements StoreService {
 		// TODO Auto-generated method stub
 		storeMapper.updateStoreRepresentingImage(vo);
 	}
+	
+	@Override
+	public void deleteStoreImage(StoreImageVO vo) {
+		// TODO Auto-generated method stub
+		storeMapper.deleteStoreImage(vo);
+	}
+	
+	@Override
+	public StoreImageVO getStoreImage(int store_image_seq) {
+		// TODO Auto-generated method stub
+		return storeMapper.getStoreImage(store_image_seq);
+	}
 }

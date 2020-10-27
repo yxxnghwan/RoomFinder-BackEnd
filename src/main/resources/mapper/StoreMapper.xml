@@ -13,9 +13,19 @@
 			SELECT * FROM STORE
 		</select>
 		
+		<select id="getStoreImage" parameterType="int" resultType="com.roomfinder.vo.StoreImageVO">
+			SELECT * FROM STORE_IMAGE
+			WHERE store_image_seq = #{store_image_seq}
+		</select>
+		
 		<update id="updateStoreRepresentingImage" parameterType="com.roomfinder.vo.StoreVO">
 			UPDATE STORE
 			SET store_representing_image_res = #{store_representing_image_res}
 			WHERE email = #{email}
 		</update>
+		
+		<delete id="deleteStoreImage" parameterType="com.roomfinder.vo.StoreImageVO">
+			DELETE FROM STORE_IMAGE
+			WHERE store_image_seq = #{store_image_seq}
+		</delete>
 	</mapper>

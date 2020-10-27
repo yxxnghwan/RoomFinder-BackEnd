@@ -8,7 +8,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -59,6 +61,28 @@ public class StoreController {
 			response.setStatus(HttpStatus.OK.value());
 		} else {
 			System.out.println("본인만 대표 이미지 변경 가능");
+			response.setStatus(HttpStatus.UNAUTHORIZED.value());
+		}
+	}
+	
+	/** 매장 이미지 얻기 */
+	@GetMapping("/image/{store_image_seq}")
+	public StoreImageVO getStoreImage(HttpServletRequest request, HttpServletResponse response, @PathVariable int store_image_seq) {
+		System.out.println("getStoreImage 요청");
+		return storeService.getStoreImage(store_image_seq);
+	}
+	
+	/** 매장 이미지 삭제 API */
+	@DeleteMapping("/image")
+	public void deleteStoreImage(HttpServletRequest request, HttpServletResponse response, @RequestBody StoreImageVO vo) {
+		System.out.println("deleteStoreImage 요청");
+		AccountVO account = (AccountVO)request.getAttribute("account");
+		StoreImageVO image = storeService.getStoreImage(vo.getStore_image_seq());
+		if(account.getEmail().equals(image.getStore_email())) { // 로그인 된 본인이면	
+			storeService.deleteStoreImage(vo);
+			response.setStatus(HttpStatus.OK.value());
+		} else {
+			System.out.println("본인만 매장 이미지 삭제 가능");
 			response.setStatus(HttpStatus.UNAUTHORIZED.value());
 		}
 	}
