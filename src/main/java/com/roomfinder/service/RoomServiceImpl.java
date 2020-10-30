@@ -1,5 +1,7 @@
 package com.roomfinder.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,5 +31,11 @@ public class RoomServiceImpl implements RoomService{
 	public RoomVO getRoom(int room_seq) {
 		// TODO Auto-generated method stub
 		return roomMapper.getRoom(room_seq);
+	}
+	
+	@Override
+	public List<RoomVO> getRoomList(String store_email) {
+		// TODO Auto-generated method stub
+		return roomMapper.getRoomList(store_email);
 	}
 }

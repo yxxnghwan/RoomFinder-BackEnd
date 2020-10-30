@@ -1,5 +1,7 @@
 package com.roomfinder.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.roomfinder.vo.RoomImageVO;
@@ -12,6 +14,7 @@ public interface RoomMapper {
 	public void insertRoomImage(RoomImageVO vo);
 	//R
 	public RoomVO getRoom(int room_seq);
+	public List<RoomVO> getRoomList(String store_email);
 	//U
 		
 	//D

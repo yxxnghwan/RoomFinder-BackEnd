@@ -21,4 +21,9 @@
 			WHERE room_seq = #{room_seq}
 		</select>
 		
+		<select id="getRoomList" parameterType="String" resultType="com.roomfinder.vo.RoomVO">
+			SELECT * FROM ROOM
+			WHERE store_email = #{store_email}
+		</select>
+		
 	</mapper>

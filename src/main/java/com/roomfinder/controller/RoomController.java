@@ -1,5 +1,7 @@
 package com.roomfinder.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -65,5 +67,12 @@ public class RoomController {
 	public RoomVO getRoom(HttpServletRequest request, HttpServletResponse response, @PathVariable int room_seq) {
 		System.out.println("getRoom 요청");
 		return roomService.getRoom(room_seq);
+	}
+	
+	/** 매장별 스터디룸 리스트 */
+	@GetMapping("/list/{store_email}")
+	public List<RoomVO> getRoomList(HttpServletRequest request, HttpServletResponse response, @PathVariable String store_email) {
+		System.out.println("getRoomList");
+		return roomService.getRoomList(store_email);
 	}
 }
