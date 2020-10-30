@@ -13,7 +13,6 @@ public interface StoreMapper {
 	
 	//C
 	public void insertStoreImage(StoreImageVO vo);
-	public void insertRoom(RoomVO vo);
 	//R
 	public List<StoreVO> getStoreList();
 	public StoreImageVO getStoreImage(int store_image_seq);

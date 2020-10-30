@@ -45,10 +45,4 @@ public class StoreServiceImpl implements StoreService {
 		// TODO Auto-generated method stub
 		return storeMapper.getStoreImage(store_image_seq);
 	}
-	
-	@Override
-	public void insertRoom(RoomVO vo) {
-		// TODO Auto-generated method stub
-		storeMapper.insertRoom(vo);
-	}
 }

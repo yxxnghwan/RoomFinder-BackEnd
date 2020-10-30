@@ -9,11 +9,6 @@
 			values(#{store_image_res}, #{store_email})
 		</insert>
 		
-		<insert id="insertRoom" parameterType="com.roomfinder.vo.RoomVO">
-			INSERT INTO ROOM(room_name, price_per_hour, description, capacity, room_representing_image_res, store_email)
-			VALUES(#{room_name}, #{price_per_hour}, #{description}, #{capacity}, #{room_representing_image_res}, #{store_email})
-		</insert>
-		
 		<select id="getStoreList" resultType="com.roomfinder.vo.StoreVO">
 			SELECT * FROM STORE
 		</select>
