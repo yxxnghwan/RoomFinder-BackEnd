@@ -75,6 +75,13 @@ public class RoomController {
 		return roomService.getRoomList(store_email);
 	}
 	
+	/** 스터디룸 이미지 리스트 */
+	@GetMapping("/image/list/{room_seq}")
+	public List<RoomImageVO> getRoomImageList(HttpServletRequest request, HttpServletResponse response, @PathVariable int room_seq) {
+		System.out.println("getRoomImageList 요청");
+		return roomService.getRoomImageList(room_seq);
+	}
+	
 	/** 스터디룸 이미지 삭제 */
 	@DeleteMapping("/image")
 	public void deleteRoomImage(HttpServletRequest request, HttpServletResponse response, @RequestBody RoomImageVO vo) {

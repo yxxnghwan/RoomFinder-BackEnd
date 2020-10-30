@@ -15,6 +15,7 @@ public interface RoomMapper {
 	//R
 	public RoomVO getRoom(int room_seq);
 	public List<RoomVO> getRoomList(String store_email);
+	public List<RoomImageVO> getRoomImageList(int room_seq);
 	//U
 		
 	//D

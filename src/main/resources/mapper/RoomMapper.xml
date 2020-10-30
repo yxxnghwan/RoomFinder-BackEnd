@@ -26,6 +26,11 @@
 			WHERE store_email = #{store_email}
 		</select>
 		
+		<select id="getRoomImageList" parameterType="int" resultType="com.roomfinder.vo.RoomImageVO">
+			SELECT * FROM ROOM_IMAGE
+			WHERE room_seq = #{room_seq}
+		</select>
+		
 		<delete id="deleteRoomImage" parameterType="int">
 			DELETE FROM ROOM_IMAGE
 			WHERE room_image_seq = #{room_image_seq}
