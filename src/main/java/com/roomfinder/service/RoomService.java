@@ -15,5 +15,5 @@ public interface RoomService {
 	//U
 	
 	//D
-
+	public void deleteRoomImage(int room_image_seq);
 }

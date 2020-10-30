@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,9 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.roomfinder.mapper.RoomMapper;
 import com.roomfinder.service.RoomService;
-import com.roomfinder.service.StoreService;
 import com.roomfinder.vo.AccountVO;
 import com.roomfinder.vo.RoomImageVO;
 import com.roomfinder.vo.RoomVO;
@@ -41,7 +40,7 @@ public class RoomController {
 			response.setStatus(HttpStatus.CREATED.value());
 			
 		} else {
-			System.out.println("본인만 매장 이미지 삭제 가능");
+			System.out.println("본인만 스터디룸 등록 가능");
 			response.setStatus(HttpStatus.UNAUTHORIZED.value());
 		}
 	}
@@ -57,7 +56,7 @@ public class RoomController {
 			response.setStatus(HttpStatus.CREATED.value());
 			
 		} else {
-			System.out.println("본인만 매장 이미지 삭제 가능");
+			System.out.println("본인만 스터디룸 이미지 등록 가능");
 			response.setStatus(HttpStatus.UNAUTHORIZED.value());
 		}
 	}
@@ -72,7 +71,39 @@ public class RoomController {
 	/** 매장별 스터디룸 리스트 */
 	@GetMapping("/list/{store_email}")
 	public List<RoomVO> getRoomList(HttpServletRequest request, HttpServletResponse response, @PathVariable String store_email) {
-		System.out.println("getRoomList");
+		System.out.println("getRoomList 요청");
 		return roomService.getRoomList(store_email);
 	}
+	
+	/** 스터디룸 이미지 삭제 */
+	@DeleteMapping("/image")
+	public void deleteRoomImage(HttpServletRequest request, HttpServletResponse response, @RequestBody RoomImageVO vo) {
+		System.out.println("deleteRoomImage 요청");
+		AccountVO account = (AccountVO)request.getAttribute("account");
+		RoomVO room = roomService.getRoom(vo.getRoom_seq());
+		if(account.getEmail().equals(room.getStore_email())) { // 로그인 된 본인이면	
+			roomService.deleteRoomImage(vo.getRoom_image_seq());
+			response.setStatus(HttpStatus.OK.value());
+			
+		} else {
+			System.out.println("본인만 스터디룸 이미지 등록 가능");
+			response.setStatus(HttpStatus.UNAUTHORIZED.value());
+		}
+	}
+	
+	/* 현재시간 이후 예약정보 없을 경우의 조건 추가하기
+	@DeleteMapping("/")
+	public void deleteRoom(HttpServletRequest request, HttpServletResponse response, @RequestBody RoomVO vo) {
+		System.out.println("deleteRoom 요청");
+		AccountVO account = (AccountVO)request.getAttribute("account");
+		if(account.getEmail().equals(vo.getStore_email())) { // 로그인 된 본인이면	
+			roomService
+			response.setStatus(HttpStatus.CREATED.value());
+			
+		} else {
+			System.out.println("본인만 스터디룸 삭제 가능");
+			response.setStatus(HttpStatus.UNAUTHORIZED.value());
+		}
+	}
+	*/
 }

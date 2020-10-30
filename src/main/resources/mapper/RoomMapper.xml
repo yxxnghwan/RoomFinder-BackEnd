@@ -26,4 +26,9 @@
 			WHERE store_email = #{store_email}
 		</select>
 		
+		<delete id="deleteRoomImage" parameterType="int">
+			DELETE FROM ROOM_IMAGE
+			WHERE room_image_seq = #{room_image_seq}
+		</delete>
+		
 	</mapper>

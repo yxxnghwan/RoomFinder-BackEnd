@@ -35,6 +35,7 @@ public class SignInFilter implements Filter{
 		allowedToSignInAPIs.add(new APIClass("/api/store/image", "DELETE"));
 		allowedToSignInAPIs.add(new APIClass("/api/room", "POST"));
 		allowedToSignInAPIs.add(new APIClass("/api/room/image", "POST"));
+		allowedToSignInAPIs.add(new APIClass("/api/room/image", "DELETE"));
 
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) res;
