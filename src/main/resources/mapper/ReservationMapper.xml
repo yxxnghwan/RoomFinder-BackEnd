@@ -9,4 +9,9 @@
 			VALUES(#{start_time}, #{end_time}, #{user_email}, #{room_seq})
 		</insert>
 		
+		<select id="getMyReservation" parameterType="String" resultType="com.roomfinder.vo.ReservationVO">
+			SELECT * FROM RESERVATION
+			WHERE user_email = #{user_email}
+		</select>
+		
 	</mapper>

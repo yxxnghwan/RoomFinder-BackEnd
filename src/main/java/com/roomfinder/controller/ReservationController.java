@@ -42,13 +42,13 @@ public class ReservationController {
 		}
 	}
 	
-	@GetMapping("/{user_email}")
-	public List<ReservationVO> getMyReservation(HttpServletRequest request, HttpServletResponse response, @PathVariable("user_email") String user_email) {
+	@GetMapping("list")
+	public List<ReservationVO> getMyReservation(HttpServletRequest request, HttpServletResponse response, @RequestBody ReservationVO vo) {
 		System.out.println("getMyReservation 요청");
 		AccountVO account = (AccountVO)request.getAttribute("account");
-		if(account.getEmail().equals(user_email)) { // 로그인 된 본인이면
-			//reservationService.getMyReservation(user_email);
+		if(account.getEmail().equals(vo.getUser_email())) { // 로그인 된 본인이면	
 			response.setStatus(HttpStatus.CREATED.value());
+			return reservationService.getMyReservation(vo.getUser_email());
 		} else {
 			System.out.println("본인만 예약조회 가능");
 			response.setStatus(HttpStatus.UNAUTHORIZED.value());

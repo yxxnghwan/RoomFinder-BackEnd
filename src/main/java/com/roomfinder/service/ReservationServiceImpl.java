@@ -1,5 +1,7 @@
 package com.roomfinder.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,5 +18,11 @@ public class ReservationServiceImpl implements ReservationService{
 	public void insertReservation(ReservationVO vo) {
 		// TODO Auto-generated method stub
 		reservationMapper.insertReservation(vo);
+	}
+	
+	@Override
+	public List<ReservationVO> getMyReservation(String user_email) {
+		// TODO Auto-generated method stub
+		return reservationMapper.getMyReservation(user_email);
 	}
 }
