@@ -31,7 +31,7 @@ public class RoomController {
 	
 	
 	/** 스터디룸 등록 */
-	@PostMapping("/")
+	@PostMapping
 	public void postRoom(HttpServletRequest request, HttpServletResponse response, @RequestBody RoomVO vo) {
 		System.out.println("postRoom 요청");
 		AccountVO account = (AccountVO)request.getAttribute("account");
