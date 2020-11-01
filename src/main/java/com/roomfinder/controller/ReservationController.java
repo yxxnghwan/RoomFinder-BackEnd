@@ -31,6 +31,10 @@ public class ReservationController {
 		if(insertableInt > 0) {
 			return false;
 		}
+		if(vo.getStart_time().isAfter(vo.getEnd_time())) {
+			System.out.println("스타트타임이 어케 엔드보다 높냐");
+			return false;
+		}
 		return true;
 	}
 	
@@ -65,6 +69,7 @@ public class ReservationController {
 		}
 		return null;
 	}
+	
 	
 	
 }
