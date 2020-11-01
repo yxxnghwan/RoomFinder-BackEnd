@@ -1,5 +1,6 @@
 package com.roomfinder.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,5 +25,17 @@ public class ReservationServiceImpl implements ReservationService{
 	public List<ReservationVO> getMyReservation(String user_email) {
 		// TODO Auto-generated method stub
 		return reservationMapper.getMyReservation(user_email);
+	}
+	
+	@Override
+	public int getEndTimeCheck(LocalDateTime time) {
+		// TODO Auto-generated method stub
+		return reservationMapper.getEndTimeCheck(time);
+	}
+	
+	@Override
+	public int getStartTimeCheck(LocalDateTime time) {
+		// TODO Auto-generated method stub
+		return reservationMapper.getStartTimeCheck(time);
 	}
 }

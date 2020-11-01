@@ -2,6 +2,7 @@ package com.roomfinder.config;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.Filter;
@@ -18,10 +19,12 @@ import org.springframework.http.HttpStatus;
 
 import com.roomfinder.vo.AccountVO;
 
+import lombok.Data;
+
 @Configuration
 public class SignInFilter implements Filter{
 	
-	private List<APIClass> allowedToSignInAPIs = new ArrayList<APIClass>();
+	private ArrayList<APIClass> allowedToSignInAPIs = new ArrayList<APIClass>();
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
 			throws IOException, ServletException {
@@ -38,12 +41,13 @@ public class SignInFilter implements Filter{
 		allowedToSignInAPIs.add(new APIClass("/api/room/image", "DELETE"));
 		allowedToSignInAPIs.add(new APIClass("/api/reservation", "POST"));
 		allowedToSignInAPIs.add(new APIClass("/api/reservation/list", "GET"));
+		
 
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) res;
 		
 		APIClass api = new APIClass(request.getRequestURI(), request.getMethod());
-		if(api.isIn(allowedToSignInAPIs)) {
+		if(allowedToSignInAPIs.contains(api)) {
 			System.out.println("로그인이 필요한 요청입니다. 로그인 체크합니다.");
 			AccountVO account = LoginManagement.signInCheck(request, response);
 			if(account != null) {
@@ -71,5 +75,13 @@ public class SignInFilter implements Filter{
 	public void destroy() {
 		// TODO Auto-generated method stub
 	}
-
+	
+	@Data class APIClass {
+		private String uri;
+		private String method;
+		public APIClass(String uri, String method) {
+			this.uri = uri;
+			this.method = method;
+		}
+	}
 }

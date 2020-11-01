@@ -1,5 +1,6 @@
 package com.roomfinder.mapper;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -13,6 +14,8 @@ public interface ReservationMapper {
 	public void insertReservation(ReservationVO vo);
 	//R
 	public List<ReservationVO> getMyReservation(String user_email);
+	public int getStartTimeCheck(LocalDateTime time);
+	public int getEndTimeCheck(LocalDateTime time);
 	//U
 	
 	//D

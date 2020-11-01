@@ -31,6 +31,7 @@ public class CORSFilter implements Filter{
 		response.setHeader("Access-Control-Allow-Max-Age","3600");
 		response.setHeader("Access-Control-Allow-Headers","X-Requested-With, Content-Type, "
 				+ "Authorization, Origin, Accept, Access-Control-Request-Method, Access-Control-Requests-Headers");
+		response.setHeader("Access-Control-Expose-Headers", "Authorization");
 		response.setCharacterEncoding("UTF-8");
 		String URI = request.getRequestURI();
 		String method = request.getMethod();

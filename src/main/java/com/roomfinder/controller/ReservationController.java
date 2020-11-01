@@ -7,10 +7,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +25,11 @@ public class ReservationController {
 	
 	@Autowired
 	ReservationService reservationService;
+	
+	private boolean isInsertableReservation(ReservationVO vo) {
+		
+		return true;
+	}
 	
 	@PostMapping
 	public void insertReservation(HttpServletRequest request, HttpServletResponse response, @RequestBody ReservationVO vo) {
@@ -55,4 +58,6 @@ public class ReservationController {
 		}
 		return null;
 	}
+	
+	
 }

@@ -14,4 +14,9 @@
 			WHERE user_email = #{user_email}
 		</select>
 		
+		<select id="getStartTimeCheck" parameterType="java.time.LocalDateTime" resultType="int">
+			SELECT COUNT(*) FROM RESERVATION
+			WHERE start_time = #{start_time}
+		</select>
+		
 	</mapper>
