@@ -48,6 +48,7 @@ public class AccountController {
 				response.setStatus(HttpStatus.CREATED.value());
 			} catch (Exception e) {
 				// TODO: handle exception
+				e.printStackTrace();
 				System.out.println("계정에선 에러 안났는데 유저에서 에라남 그래서 account삭제해줌");
 				accountService.deleteAccount(vo.getEmail());
 				response.setStatus(HttpStatus.BAD_REQUEST.value());
@@ -72,6 +73,7 @@ public class AccountController {
 				response.setStatus(HttpStatus.CREATED.value());
 			} catch (Exception e) {
 				// TODO: handle exception
+				e.printStackTrace();
 				System.out.println("계정에선 에러 안났는데 스토어에서 에라남 그래서 account삭제해줌");
 				accountService.deleteAccount(vo.getEmail());
 				response.setStatus(HttpStatus.BAD_REQUEST.value());

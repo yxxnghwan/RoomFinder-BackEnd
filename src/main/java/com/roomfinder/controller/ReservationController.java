@@ -27,7 +27,10 @@ public class ReservationController {
 	ReservationService reservationService;
 	
 	private boolean isInsertableReservation(ReservationVO vo) {
-		
+		int insertableInt = reservationService.getInsertableCheck(vo);
+		if(insertableInt > 0) {
+			return false;
+		}
 		return true;
 	}
 	
@@ -37,8 +40,12 @@ public class ReservationController {
 		System.out.println(vo);
 		AccountVO account = (AccountVO)request.getAttribute("account");
 		if(account.getEmail().equals(vo.getUser_email())) { // 로그인 된 본인이면
-			reservationService.insertReservation(vo);
-			response.setStatus(HttpStatus.CREATED.value());
+			if(isInsertableReservation(vo)) {
+				reservationService.insertReservation(vo);
+				response.setStatus(HttpStatus.CREATED.value());
+			} else {
+				response.setStatus(HttpStatus.CONFLICT.value());
+			}
 		} else {
 			System.out.println("본인만 예약 가능");
 			response.setStatus(HttpStatus.UNAUTHORIZED.value());

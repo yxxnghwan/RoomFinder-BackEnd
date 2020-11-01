@@ -14,7 +14,7 @@
 			WHERE user_email = #{user_email}
 		</select>
 		
-		<select id="getStartTimeCheck" parameterType="com.roomfinder.vo.ReservationVO" resultType="int">
+		<select id="getInsertableCheck" parameterType="com.roomfinder.vo.ReservationVO" resultType="int">
 			<![CDATA[
 			SELECT COUNT(*) FROM RESERVATION
 			WHERE start_time < #{end_time} or end_time > #{start_time}
