@@ -14,8 +14,7 @@ public interface ReservationMapper {
 	public void insertReservation(ReservationVO vo);
 	//R
 	public List<ReservationVO> getMyReservation(String user_email);
-	public int getStartTimeCheck(LocalDateTime time);
-	public int getEndTimeCheck(LocalDateTime time);
+	public int getInsertableCheck(ReservationVO vo);
 	//U
 	
 	//D

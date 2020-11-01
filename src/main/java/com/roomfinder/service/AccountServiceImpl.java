@@ -81,4 +81,10 @@ public class AccountServiceImpl implements AccountService{
 		// TODO Auto-generated method stub
 		accountMapper.updateUserName(vo);
 	}
+	
+	@Override
+	public void deleteAccount(String email) {
+		// TODO Auto-generated method stub
+		accountMapper.deleteAccount(email);
+	}
 }

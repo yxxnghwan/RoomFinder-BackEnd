@@ -1,5 +1,6 @@
 package com.roomfinder.controller;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,8 +43,15 @@ public class AccountController {
 		System.out.println("비크립트 해시 : " + vo.getPassword());
 		try {
 			accountService.insertAccount(vo);
-			accountService.insertUser(vo);
-			response.setStatus(HttpStatus.CREATED.value());
+			try {
+				accountService.insertUser(vo);
+				response.setStatus(HttpStatus.CREATED.value());
+			} catch (Exception e) {
+				// TODO: handle exception
+				System.out.println("계정에선 에러 안났는데 유저에서 에라남 그래서 account삭제해줌");
+				accountService.deleteAccount(vo.getEmail());
+				response.setStatus(HttpStatus.BAD_REQUEST.value());
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			response.setStatus(HttpStatus.CONFLICT.value());
@@ -59,8 +67,15 @@ public class AccountController {
 		System.out.println("비크립트 해시 : " + vo.getPassword());
 		try {
 			accountService.insertAccount(vo);
-			accountService.insertStore(vo);
-			response.setStatus(HttpStatus.CREATED.value());
+			try {
+				accountService.insertStore(vo);
+				response.setStatus(HttpStatus.CREATED.value());
+			} catch (Exception e) {
+				// TODO: handle exception
+				System.out.println("계정에선 에러 안났는데 스토어에서 에라남 그래서 account삭제해줌");
+				accountService.deleteAccount(vo.getEmail());
+				response.setStatus(HttpStatus.BAD_REQUEST.value());
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			response.setStatus(HttpStatus.CONFLICT.value());

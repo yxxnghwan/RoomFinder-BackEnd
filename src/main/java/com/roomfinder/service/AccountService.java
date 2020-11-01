@@ -27,4 +27,5 @@ public interface AccountService {
 	
 	
 	//D
+	public void deleteAccount(String email);
 }

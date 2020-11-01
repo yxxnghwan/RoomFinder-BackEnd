@@ -28,14 +28,8 @@ public class ReservationServiceImpl implements ReservationService{
 	}
 	
 	@Override
-	public int getEndTimeCheck(LocalDateTime time) {
+	public int getInsertableCheck(ReservationVO vo) {
 		// TODO Auto-generated method stub
-		return reservationMapper.getEndTimeCheck(time);
-	}
-	
-	@Override
-	public int getStartTimeCheck(LocalDateTime time) {
-		// TODO Auto-generated method stub
-		return reservationMapper.getStartTimeCheck(time);
+		return reservationMapper.getInsertableCheck(vo);
 	}
 }

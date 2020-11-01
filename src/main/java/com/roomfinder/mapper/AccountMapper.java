@@ -31,4 +31,5 @@ public interface AccountMapper {
 	
 	
 	//D
+	public void deleteAccount(String email);
 }

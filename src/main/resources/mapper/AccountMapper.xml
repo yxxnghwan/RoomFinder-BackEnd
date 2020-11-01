@@ -59,4 +59,9 @@
 			SET user_name = #{user_name}
 			WHERE email = #{email}
 		</update>
+		
+		<delete id="deleteAccount" parameterType="String">
+			DELETE FROM ACCOUNT
+			WHERE email = #{email}
+		</delete>
 	</mapper>

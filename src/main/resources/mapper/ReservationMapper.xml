@@ -14,9 +14,11 @@
 			WHERE user_email = #{user_email}
 		</select>
 		
-		<select id="getStartTimeCheck" parameterType="java.time.LocalDateTime" resultType="int">
+		<select id="getStartTimeCheck" parameterType="com.roomfinder.vo.ReservationVO" resultType="int">
+			<![CDATA[
 			SELECT COUNT(*) FROM RESERVATION
-			WHERE start_time = #{start_time}
+			WHERE start_time < #{end_time} or end_time > #{start_time}
+			]]>
 		</select>
 		
 	</mapper>
