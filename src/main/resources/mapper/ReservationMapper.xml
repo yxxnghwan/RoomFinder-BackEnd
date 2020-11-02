@@ -17,8 +17,19 @@
 		<select id="getInsertableCheck" parameterType="com.roomfinder.vo.ReservationVO" resultType="int">
 			<![CDATA[
 			SELECT COUNT(*) FROM RESERVATION
-			WHERE start_time < #{end_time} or end_time > #{start_time}
+			WHERE (start_time < #{end_time} and end_time > #{end_time}) or (end_time > #{start_time} and start_time < #{start_time})
 			]]>
+		</select>
+		
+		<select id="getRoomReservationList" parameterType="int" resultType="com.roomfinder.vo.ReservationVO">
+			SELECT * FROM RESERVATION
+			WHERE room_seq = #{room_seq}
+		</select>
+		
+		<select id="getRoomDateReservationList" parameterType="com.roomfinder.vo.ReservationVO" resultType="com.roomfinder.vo.ReservationVO">
+			SELECT * FROM RESERVATION
+			WHERE room_seq = #{room_seq}
+			AND DATE(start_time) = #{str_date} OR DATE(end_time) = #{end_time}
 		</select>
 		
 	</mapper>

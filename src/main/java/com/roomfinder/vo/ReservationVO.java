@@ -15,4 +15,5 @@ public @Data class ReservationVO {
 	private LocalDateTime end_time;
 	private String user_email;
 	private int room_seq;
+	private String str_date;
 }

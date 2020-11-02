@@ -15,6 +15,8 @@ public interface ReservationMapper {
 	//R
 	public List<ReservationVO> getMyReservation(String user_email);
 	public int getInsertableCheck(ReservationVO vo);
+	public List<ReservationVO> getRoomReservationList(int room_seq);
+	public List<ReservationVO> getRoomDateReservationList(ReservationVO vo);
 	//U
 	
 	//D
