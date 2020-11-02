@@ -86,4 +86,10 @@ public class ReservationController {
 		return reservationService.getRoomDateReservationList(vo);
 	}
 	
+	@GetMapping("/room/afternow/{room_seq}")
+	public List<ReservationVO> getRoomAfterNowReservationList(HttpServletRequest request, HttpServletResponse response, @PathVariable("room_seq") int room_seq) {
+		System.out.println("getRoomAfterNowReservationList요청");
+		return reservationService.getRoomAfterNowReservationList(room_seq);
+	}
+	
 }

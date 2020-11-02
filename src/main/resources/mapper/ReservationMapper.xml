@@ -32,4 +32,12 @@
 			AND DATE(start_time) = #{str_date} OR DATE(end_time) = #{end_time}
 		</select>
 		
+		<select id="getRoomAfterNowReservationList" parameterType="int" resultType="com.roomfinder.vo.ReservationVO">
+			<![CDATA[
+			SELECT * FROM RESERVATION
+			WHERE room_seq = #{room_seq}
+			AND end_time > now() 
+			]]>
+		</select>
+		
 	</mapper>

@@ -44,4 +44,10 @@ public class ReservationServiceImpl implements ReservationService{
 		// TODO Auto-generated method stub
 		return reservationMapper.getRoomDateReservationList(vo);
 	}
+	
+	@Override
+	public List<ReservationVO> getRoomAfterNowReservationList(int room_seq) {
+		// TODO Auto-generated method stub
+		return reservationMapper.getRoomAfterNowReservationList(room_seq);
+	}
 }

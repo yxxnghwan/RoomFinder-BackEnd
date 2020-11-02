@@ -17,6 +17,7 @@ public interface ReservationMapper {
 	public int getInsertableCheck(ReservationVO vo);
 	public List<ReservationVO> getRoomReservationList(int room_seq);
 	public List<ReservationVO> getRoomDateReservationList(ReservationVO vo);
+	public List<ReservationVO> getRoomAfterNowReservationList(int room_seq);
 	//U
 	
 	//D
