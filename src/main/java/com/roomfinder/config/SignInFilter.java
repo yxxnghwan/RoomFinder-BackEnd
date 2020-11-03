@@ -34,7 +34,7 @@ public class SignInFilter implements Filter{
 		allowedToSignInAPIs.add(new APIClass("/api/accounts/phone", "PATCH"));
 		allowedToSignInAPIs.add(new APIClass("/api/accounts/username", "PATCH"));
 		allowedToSignInAPIs.add(new APIClass("/api/store/image", "POST"));
-		allowedToSignInAPIs.add(new APIClass("/api/store/representingimage", "PUT"));
+		allowedToSignInAPIs.add(new APIClass("/api/store/representingimage", "PATCH"));
 		allowedToSignInAPIs.add(new APIClass("/api/store/image", "DELETE"));
 		allowedToSignInAPIs.add(new APIClass("/api/room", "POST"));
 		allowedToSignInAPIs.add(new APIClass("/api/room/image", "POST"));
@@ -43,6 +43,7 @@ public class SignInFilter implements Filter{
 		allowedToSignInAPIs.add(new APIClass("/api/reservation/list", "GET"));
 		allowedToSignInAPIs.add(new APIClass("/api/room", "DELETE"));
 		allowedToSignInAPIs.add(new APIClass("/api/accounts/user", "PUT"));
+		allowedToSignInAPIs.add(new APIClass("/api/store", "PUT"));
 		
 
 		HttpServletRequest request = (HttpServletRequest) req;

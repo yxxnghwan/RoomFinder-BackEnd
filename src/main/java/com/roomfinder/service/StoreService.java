@@ -14,6 +14,7 @@ public interface StoreService {
 	public StoreImageVO getStoreImage(int store_image_seq);
 	//U
 	public void updateStoreRepresentingImage(StoreVO vo);
+	public void updateStore(StoreVO vo);
 	//D
 	public void deleteStoreImage(StoreImageVO vo);
 }
