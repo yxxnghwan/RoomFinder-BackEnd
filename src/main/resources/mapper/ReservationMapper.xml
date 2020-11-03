@@ -40,4 +40,12 @@
 			]]>
 		</select>
 		
+		<select id="getAfterNowReservationCount" parameterType="int" resultType="int">
+			<![CDATA[
+			SELECT COUNT(*) FROM RESERVATION
+			WHERE room_seq = #{room_seq}
+			AND end_time > now()
+			]]>
+		</select>
+		
 	</mapper>

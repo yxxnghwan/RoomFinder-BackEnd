@@ -50,4 +50,10 @@ public class RoomServiceImpl implements RoomService{
 		// TODO Auto-generated method stub
 		return roomMapper.getRoomImageList(room_seq);
 	}
+	
+	@Override
+	public void deleteRoom(int room_seq) {
+		// TODO Auto-generated method stub
+		roomMapper.deleteRoom(room_seq);
+	}
 }

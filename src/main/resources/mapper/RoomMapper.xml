@@ -36,4 +36,9 @@
 			WHERE room_image_seq = #{room_image_seq}
 		</delete>
 		
+		<delete id="deleteRoom" parameterType="int">
+			DELETE FROM ROOM
+			WHERE room_seq = #{room_seq}
+		</delete>
+		
 	</mapper>

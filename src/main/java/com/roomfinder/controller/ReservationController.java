@@ -58,17 +58,10 @@ public class ReservationController {
 	}
 	
 	@GetMapping("list")
-	public List<ReservationVO> getMyReservationList(HttpServletRequest request, HttpServletResponse response, @RequestBody ReservationVO vo) {
+	public List<ReservationVO> getMyReservationList(HttpServletRequest request, HttpServletResponse response) {
 		System.out.println("getMyReservationList 요청");
 		AccountVO account = (AccountVO)request.getAttribute("account");
-		if(account.getEmail().equals(vo.getUser_email())) { // 로그인 된 본인이면	
-			response.setStatus(HttpStatus.CREATED.value());
-			return reservationService.getMyReservation(vo.getUser_email());
-		} else {
-			System.out.println("본인만 예약조회 가능");
-			response.setStatus(HttpStatus.UNAUTHORIZED.value());
-		}
-		return null;
+		return reservationService.getMyReservation(account.getEmail());
 	}
 	
 	@GetMapping("room/{room_seq}")

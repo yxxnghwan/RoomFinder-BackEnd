@@ -20,4 +20,5 @@ public interface RoomMapper {
 		
 	//D
 	public void deleteRoomImage(int room_image_seq);
+	public void deleteRoom(int room_seq);
 }

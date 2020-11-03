@@ -41,6 +41,7 @@ public class SignInFilter implements Filter{
 		allowedToSignInAPIs.add(new APIClass("/api/room/image", "DELETE"));
 		allowedToSignInAPIs.add(new APIClass("/api/reservation", "POST"));
 		allowedToSignInAPIs.add(new APIClass("/api/reservation/list", "GET"));
+		allowedToSignInAPIs.add(new APIClass("/api/room", "DELETE"));
 		
 
 		HttpServletRequest request = (HttpServletRequest) req;

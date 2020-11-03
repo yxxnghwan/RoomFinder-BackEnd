@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.roomfinder.service.ReservationService;
 import com.roomfinder.service.RoomService;
 import com.roomfinder.vo.AccountVO;
 import com.roomfinder.vo.RoomImageVO;
@@ -28,6 +29,16 @@ public class RoomController {
 	
 	@Autowired
 	RoomService roomService;
+	
+	@Autowired
+	ReservationService reservationService;
+	
+	private boolean isDeletableRoom(int room_seq) {
+		if(reservationService.getAfterNowReservationCount(room_seq) > 0) {
+			return false;
+		}
+		return true;
+	}
 	
 	
 	/** 스터디룸 등록 */
@@ -98,19 +109,22 @@ public class RoomController {
 		}
 	}
 	
-	/* 현재시간 이후 예약정보 없을 경우의 조건 추가하기
-	@DeleteMapping("/")
+	/** 룸삭제 */
+	@DeleteMapping
 	public void deleteRoom(HttpServletRequest request, HttpServletResponse response, @RequestBody RoomVO vo) {
 		System.out.println("deleteRoom 요청");
 		AccountVO account = (AccountVO)request.getAttribute("account");
 		if(account.getEmail().equals(vo.getStore_email())) { // 로그인 된 본인이면	
-			roomService
-			response.setStatus(HttpStatus.CREATED.value());
-			
+			if(isDeletableRoom(vo.getRoom_seq())) {
+				roomService.deleteRoom(vo.getRoom_seq());
+				response.setStatus(HttpStatus.OK.value());
+			} else {
+				response.setStatus(HttpStatus.CONFLICT.value());
+			}
 		} else {
 			System.out.println("본인만 스터디룸 삭제 가능");
 			response.setStatus(HttpStatus.UNAUTHORIZED.value());
 		}
 	}
-	*/
+	
 }
