@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -108,6 +109,21 @@ public class RoomController {
 			
 		} else {
 			System.out.println("본인만 스터디룸 이미지 등록 가능");
+			response.setStatus(HttpStatus.UNAUTHORIZED.value());
+		}
+	}
+	
+	/** 룸 정보 수정 */
+	@PutMapping
+	public void updateRoom(HttpServletRequest request, HttpServletResponse response, @RequestBody RoomVO vo) {
+		System.out.println("updateRoom");
+		System.out.println(vo);
+		AccountVO account = (AccountVO)request.getAttribute("account");
+		if(account.getEmail().equals(vo.getStore_email())) { // 로그인 된 본인이면	
+			roomService.updateRoom(vo);
+			response.setStatus(HttpStatus.OK.value());
+		} else {
+			System.out.println("본인만 스터디룸 정보수정 가능");
 			response.setStatus(HttpStatus.UNAUTHORIZED.value());
 		}
 	}

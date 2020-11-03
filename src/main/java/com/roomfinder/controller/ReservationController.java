@@ -39,6 +39,7 @@ public class ReservationController {
 		return true;
 	}
 	
+	/** 예약정보 추가 */
 	@PostMapping
 	public void insertReservation(HttpServletRequest request, HttpServletResponse response, @RequestBody ReservationVO vo) {
 		System.out.println("insertReservation 요청");
@@ -57,6 +58,7 @@ public class ReservationController {
 		}
 	}
 	
+	/** 나의 예약정보 */
 	@GetMapping("list")
 	public List<ReservationVO> getMyReservationList(HttpServletRequest request, HttpServletResponse response) {
 		System.out.println("getMyReservationList 요청");
@@ -64,12 +66,14 @@ public class ReservationController {
 		return reservationService.getMyReservation(account.getEmail());
 	}
 	
+	/** 해당 룸의 예약정보 */
 	@GetMapping("room/{room_seq}")
 	public List<ReservationVO> getRoomReservationList(HttpServletRequest request, HttpServletResponse response, @PathVariable("room_seq") int room_seq) {
 		System.out.println("getRoomReservationList 요청");
 		return reservationService.getRoomReservationList(room_seq);
 	}
 	
+	/** 해당 룸의 해당 날짜 예약정보 */
 	@GetMapping("room/{room_seq}/{str_date}")
 	public List<ReservationVO> getRoomDateReservationList(HttpServletRequest request, HttpServletResponse response, @PathVariable("room_seq") int room_seq, @PathVariable("str_date") String str_date) {
 		System.out.println("getRoomDateReservationList요청");
@@ -79,6 +83,7 @@ public class ReservationController {
 		return reservationService.getRoomDateReservationList(vo);
 	}
 	
+	/** 해당 룸의 현재시간 이후 예약정보 */
 	@GetMapping("/room/afternow/{room_seq}")
 	public List<ReservationVO> getRoomAfterNowReservationList(HttpServletRequest request, HttpServletResponse response, @PathVariable("room_seq") int room_seq) {
 		System.out.println("getRoomAfterNowReservationList요청");

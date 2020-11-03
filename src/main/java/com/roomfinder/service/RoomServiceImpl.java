@@ -56,4 +56,10 @@ public class RoomServiceImpl implements RoomService{
 		// TODO Auto-generated method stub
 		roomMapper.deleteRoom(room_seq);
 	}
+	
+	@Override
+	public void updateRoom(RoomVO vo) {
+		// TODO Auto-generated method stub
+		roomMapper.updateRoom(vo);
+	}
 }

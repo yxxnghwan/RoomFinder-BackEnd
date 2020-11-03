@@ -78,6 +78,7 @@ public class StoreController {
 		return storeService.getStoreImage(store_image_seq);
 	}
 	
+	/** 매장 전체정보 수정 */
 	@PutMapping
 	public void updateStore(HttpServletRequest request, HttpServletResponse response, @RequestBody StoreVO vo) {
 		System.out.println("updateStore 요청");

@@ -213,6 +213,7 @@ public class AccountController {
 		}
 	}
 	
+	/** 유저정보 수정 */
 	@PutMapping("/user")
 	public void updateUser(HttpServletRequest request, HttpServletResponse response, @RequestBody UserVO vo) {
 		System.out.println("updateUser 요청");

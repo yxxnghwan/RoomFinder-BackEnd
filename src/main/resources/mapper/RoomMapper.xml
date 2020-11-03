@@ -31,6 +31,16 @@
 			WHERE room_seq = #{room_seq}
 		</select>
 		
+		<update id="updateRoom" parameterType="com.roomfinder.vo.RoomVO">
+			UPDATE ROOM
+			SET room_name = #{room_name},
+			price_per_hour = #{price_per_hour},
+			description = #{description},
+			capacity = #{capacity},
+			room_representing_image_res = #{room_representing_image_res}
+			WHERE room_seq = #{room_seq}
+		</update>
+		
 		<delete id="deleteRoomImage" parameterType="int">
 			DELETE FROM ROOM_IMAGE
 			WHERE room_image_seq = #{room_image_seq}
