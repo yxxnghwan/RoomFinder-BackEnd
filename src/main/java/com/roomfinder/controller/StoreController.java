@@ -37,6 +37,7 @@ public class StoreController {
 	@PostMapping("/image")
 	public void postImage(HttpServletRequest request, HttpServletResponse response, @RequestBody StoreImageVO vo) {
 		System.out.println("postImage 요청");
+		System.out.println(vo);
 		AccountVO account = (AccountVO)request.getAttribute("account");
 		if(account.getEmail().equals(vo.getStore_email())) { // 로그인 된 본인이면
 			storeService.insertStoreImage(vo);
@@ -58,6 +59,7 @@ public class StoreController {
 	@PutMapping("/representingimage")
 	public void putStoreRepresentingImage(HttpServletRequest request, HttpServletResponse response, @RequestBody StoreVO vo) {
 		System.out.println("putRepresentingImage 요청");
+		System.out.println(vo);
 		AccountVO account = (AccountVO)request.getAttribute("account");
 		if(account.getEmail().equals(vo.getEmail())) { // 로그인 된 본인이면
 			storeService.updateStoreRepresentingImage(vo);
@@ -79,6 +81,7 @@ public class StoreController {
 	@DeleteMapping("/image")
 	public void deleteStoreImage(HttpServletRequest request, HttpServletResponse response, @RequestBody StoreImageVO vo) {
 		System.out.println("deleteStoreImage 요청");
+		System.out.println(vo);
 		AccountVO account = (AccountVO)request.getAttribute("account");
 		StoreImageVO image = storeService.getStoreImage(vo.getStore_image_seq());
 		if(account.getEmail().equals(image.getStore_email())) { // 로그인 된 본인이면	

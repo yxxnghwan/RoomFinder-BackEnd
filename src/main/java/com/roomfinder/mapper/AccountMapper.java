@@ -27,6 +27,7 @@ public interface AccountMapper {
 	public void updatePassword(AccountVO vo);
 	public void updatePhone(UserVO vo);
 	public void updateUserName(UserVO vo);
+	public void updateUser(UserVO vo);
 	
 	
 	

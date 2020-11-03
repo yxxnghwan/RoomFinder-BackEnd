@@ -60,6 +60,13 @@
 			WHERE email = #{email}
 		</update>
 		
+		<update id="updateUser" parameterType="com.roomfinder.vo.UserVO">
+			UPDATE USER
+			SET user_name = #{user_name},
+			phone = #{phone}
+			WHERE email = #{email}
+		</update>
+		
 		<delete id="deleteAccount" parameterType="String">
 			DELETE FROM ACCOUNT
 			WHERE email = #{email}

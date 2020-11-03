@@ -24,6 +24,7 @@ public interface AccountService {
 	public void updatePassword(AccountVO vo);
 	public void updatePhone(UserVO vo);
 	public void updateUserName(UserVO vo);
+	public void updateUser(UserVO vo);
 	
 	
 	//D

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -208,6 +209,20 @@ public class AccountController {
 			response.setStatus(HttpStatus.OK.value());
 		} else {
 			System.out.println("본인만 유저이름 바꾸기 가능");
+			response.setStatus(HttpStatus.UNAUTHORIZED.value());
+		}
+	}
+	
+	@PutMapping("/user")
+	public void updateUser(HttpServletRequest request, HttpServletResponse response, @RequestBody UserVO vo) {
+		System.out.println("updateUser 요청");
+		System.out.println(vo);
+		AccountVO account = (AccountVO)request.getAttribute("account");
+		if(account.getEmail().equals(vo.getEmail())) { // 로그인 된 본인이면
+			accountService.updateUser(vo);
+			response.setStatus(HttpStatus.OK.value());
+		} else {
+			System.out.println("본인만 유저정보 수정 가능");
 			response.setStatus(HttpStatus.UNAUTHORIZED.value());
 		}
 	}

@@ -45,6 +45,7 @@ public class RoomController {
 	@PostMapping
 	public void postRoom(HttpServletRequest request, HttpServletResponse response, @RequestBody RoomVO vo) {
 		System.out.println("postRoom 요청");
+		System.out.println(vo);
 		AccountVO account = (AccountVO)request.getAttribute("account");
 		if(account.getEmail().equals(vo.getStore_email())) { // 로그인 된 본인이면	
 			roomService.insertRoom(vo);
@@ -60,6 +61,7 @@ public class RoomController {
 	@PostMapping("/image")
 	public void postRoomImage(HttpServletRequest request, HttpServletResponse response, @RequestBody RoomImageVO vo) {
 		System.out.println("postRoomImage 요청");
+		System.out.println(vo);
 		AccountVO account = (AccountVO)request.getAttribute("account");
 		RoomVO room = roomService.getRoom(vo.getRoom_seq());
 		if(account.getEmail().equals(room.getStore_email())) { // 로그인 된 본인이면	
@@ -97,6 +99,7 @@ public class RoomController {
 	@DeleteMapping("/image")
 	public void deleteRoomImage(HttpServletRequest request, HttpServletResponse response, @RequestBody RoomImageVO vo) {
 		System.out.println("deleteRoomImage 요청");
+		System.out.println(vo);
 		AccountVO account = (AccountVO)request.getAttribute("account");
 		RoomVO room = roomService.getRoom(vo.getRoom_seq());
 		if(account.getEmail().equals(room.getStore_email())) { // 로그인 된 본인이면	
@@ -113,6 +116,7 @@ public class RoomController {
 	@DeleteMapping
 	public void deleteRoom(HttpServletRequest request, HttpServletResponse response, @RequestBody RoomVO vo) {
 		System.out.println("deleteRoom 요청");
+		System.out.println(vo);
 		AccountVO account = (AccountVO)request.getAttribute("account");
 		if(account.getEmail().equals(vo.getStore_email())) { // 로그인 된 본인이면	
 			if(isDeletableRoom(vo.getRoom_seq())) {
