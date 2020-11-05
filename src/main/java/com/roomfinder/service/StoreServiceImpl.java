@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.roomfinder.mapper.StoreMapper;
 import com.roomfinder.vo.RoomVO;
+import com.roomfinder.vo.SearchVO;
 import com.roomfinder.vo.StoreImageVO;
 import com.roomfinder.vo.StoreVO;
 
@@ -56,5 +57,11 @@ public class StoreServiceImpl implements StoreService {
 	public List<StoreVO> getLocationSearchStoreList(String search_keyword) {
 		// TODO Auto-generated method stub
 		return storeMapper.getLocationSearchStoreList(search_keyword);
+	}
+	
+	@Override
+	public List<StoreVO> getPriceSearchStoreList(SearchVO vo) {
+		// TODO Auto-generated method stub
+		return storeMapper.getPriceSearchStoreList(vo);
 	}
 }

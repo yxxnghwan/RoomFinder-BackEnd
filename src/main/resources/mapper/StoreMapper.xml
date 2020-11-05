@@ -23,6 +23,12 @@
 			WHERE address_line like '%${search_keyword}%'
 		</select>
 		
+		<select id="getPriceSearchStoreList" parameterType="com.roomfinder.vo.SearchVO" resultType="com.roomfinder.vo.StoreVO">
+			SELECT STORE.* FROM STORE, ROOM
+			WHERE STORE.email = ROOM.store_email
+			AND ROOM.price_per_hour BETWEEN #{min_price} AND #{max_price}
+		</select>
+		
 		<update id="updateStoreRepresentingImage" parameterType="com.roomfinder.vo.StoreVO">
 			UPDATE STORE
 			SET store_representing_image_res = #{store_representing_image_res}

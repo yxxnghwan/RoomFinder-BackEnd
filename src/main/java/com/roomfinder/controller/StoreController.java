@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.roomfinder.service.StoreService;
 import com.roomfinder.vo.AccountVO;
 import com.roomfinder.vo.RoomVO;
+import com.roomfinder.vo.SearchVO;
 import com.roomfinder.vo.StoreImageVO;
 import com.roomfinder.vo.StoreVO;
 
@@ -83,6 +84,16 @@ public class StoreController {
 	public List<StoreVO> getLocationSearchStoreList(HttpServletRequest request, HttpServletResponse response, @PathVariable String search_keyword) {
 		System.out.println("getLocationSearchStoreList 요청");
 		return storeService.getLocationSearchStoreList(search_keyword);
+	}
+	
+	/** 가격별 매장 검색 */
+	@GetMapping("/price/{min_price}/{max_price}")
+	public List<StoreVO> getPriceSearchStoreList(HttpServletRequest request, HttpServletResponse response, @PathVariable int min_price, @PathVariable int max_price) {
+		System.out.println("getPriceSearchStoreList 요청");
+		SearchVO vo = new SearchVO();
+		vo.setMin_price(min_price);
+		vo.setMax_price(max_price);
+		return storeService.getPriceSearchStoreList(vo);
 	}
 	
 	/** 매장 전체정보 수정 */

@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.roomfinder.vo.RoomVO;
+import com.roomfinder.vo.SearchVO;
 import com.roomfinder.vo.StoreImageVO;
 import com.roomfinder.vo.StoreVO;
 
@@ -17,6 +18,7 @@ public interface StoreMapper {
 	public List<StoreVO> getStoreList();
 	public StoreImageVO getStoreImage(int store_image_seq);
 	public List<StoreVO> getLocationSearchStoreList(String search_keyword);
+	public List<StoreVO> getPriceSearchStoreList(SearchVO vo);
 	//U
 	public void updateStoreRepresentingImage(StoreVO vo);
 	public void updateStore(StoreVO vo);
