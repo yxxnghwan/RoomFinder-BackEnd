@@ -56,4 +56,10 @@ public class ReservationServiceImpl implements ReservationService{
 		// TODO Auto-generated method stub
 		return reservationMapper.getAfterNowReservationCount(room_seq);
 	}
+	
+	@Override
+	public void deleteReservation(ReservationVO vo) {
+		// TODO Auto-generated method stub
+		reservationMapper.deleteReservation(vo);
+	}
 }

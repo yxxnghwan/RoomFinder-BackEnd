@@ -48,4 +48,9 @@
 			]]>
 		</select>
 		
+		<delete id="deleteReservation" parameterType="com.roomfinder.vo.ReservationVO">
+			DELETE FROM RESERVATION
+			WHERE reservation_seq = #{reservation_seq}
+		</delete>
+		
 	</mapper>

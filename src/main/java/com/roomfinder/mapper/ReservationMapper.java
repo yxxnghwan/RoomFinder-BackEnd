@@ -22,4 +22,5 @@ public interface ReservationMapper {
 	//U
 	
 	//D
+	public void deleteReservation(ReservationVO vo);
 }

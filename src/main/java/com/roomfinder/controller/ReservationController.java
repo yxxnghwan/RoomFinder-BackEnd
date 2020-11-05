@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -88,6 +89,19 @@ public class ReservationController {
 	public List<ReservationVO> getRoomAfterNowReservationList(HttpServletRequest request, HttpServletResponse response, @PathVariable("room_seq") int room_seq) {
 		System.out.println("getRoomAfterNowReservationList요청");
 		return reservationService.getRoomAfterNowReservationList(room_seq);
+	}
+	
+	@DeleteMapping
+	public void deleteReservation(HttpServletRequest request, HttpServletResponse response, @RequestBody ReservationVO vo) {
+		System.out.println("deleteReservation 요청");
+		AccountVO account = (AccountVO)request.getAttribute("account");
+		if(account.getEmail().equals(vo.getUser_email())) { // 로그인 된 본인이면
+			reservationService.deleteReservation(vo);
+			response.setStatus(HttpStatus.OK.value());
+		} else {
+			System.out.println("본인만 삭제 가능");
+			response.setStatus(HttpStatus.UNAUTHORIZED.value());
+		}
 	}
 	
 }

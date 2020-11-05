@@ -19,4 +19,5 @@ public interface ReservationService {
 	//U
 		
 	//D
+	public void deleteReservation(ReservationVO vo);
 }
