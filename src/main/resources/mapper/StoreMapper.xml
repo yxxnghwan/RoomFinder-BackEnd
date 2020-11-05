@@ -18,6 +18,11 @@
 			WHERE store_image_seq = #{store_image_seq}
 		</select>
 		
+		<select id="getLocationSearchStoreList" parameterType="String" resultType="com.roomfinder.vo.StoreVO">
+			SELECT * FROM STORE
+			WHERE address_line like '%${search_keyword}%'
+		</select>
+		
 		<update id="updateStoreRepresentingImage" parameterType="com.roomfinder.vo.StoreVO">
 			UPDATE STORE
 			SET store_representing_image_res = #{store_representing_image_res}

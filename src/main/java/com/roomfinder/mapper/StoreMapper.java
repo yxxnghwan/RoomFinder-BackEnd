@@ -16,6 +16,7 @@ public interface StoreMapper {
 	//R
 	public List<StoreVO> getStoreList();
 	public StoreImageVO getStoreImage(int store_image_seq);
+	public List<StoreVO> getLocationSearchStoreList(String search_keyword);
 	//U
 	public void updateStoreRepresentingImage(StoreVO vo);
 	public void updateStore(StoreVO vo);
