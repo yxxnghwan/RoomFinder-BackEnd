@@ -29,6 +29,11 @@
 			AND ROOM.price_per_hour BETWEEN #{min_price} AND #{max_price}
 		</select>
 		
+		<select id="getStoreNameSearchStoreList" parameterType="String" resultType="com.roomfinder.vo.StoreVO">
+			SELECT * FROM STORE
+			WHERE store_name like '%${search_keyword}%'
+		</select>
+		
 		<update id="updateStoreRepresentingImage" parameterType="com.roomfinder.vo.StoreVO">
 			UPDATE STORE
 			SET store_representing_image_res = #{store_representing_image_res}

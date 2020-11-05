@@ -64,4 +64,10 @@ public class StoreServiceImpl implements StoreService {
 		// TODO Auto-generated method stub
 		return storeMapper.getPriceSearchStoreList(vo);
 	}
+	
+	@Override
+	public List<StoreVO> getStoreNameSearchStoreList(String search_keyword) {
+		// TODO Auto-generated method stub
+		return storeMapper.getStoreNameSearchStoreList(search_keyword);
+	}
 }
