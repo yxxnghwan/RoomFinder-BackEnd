@@ -97,10 +97,17 @@ public class StoreController {
 	}
 	
 	/** 매장 이름 검색 */
-	@GetMapping("name/{search_keyword}")
+	@GetMapping("/name/{search_keyword}")
 	public List<StoreVO> getStoreNameSearchStoreList(HttpServletRequest request, HttpServletResponse response, @PathVariable String search_keyword) {
 		System.out.println("getStoreNameSearchStoreList 요청");
 		return storeService.getStoreNameSearchStoreList(search_keyword);
+	}
+	
+	/** 지역이름 또는 매장이름 검색 */
+	@GetMapping("/totalsearch/{search_keyword}")
+	public List<StoreVO> getTotalSearchStoreList(HttpServletRequest request, HttpServletResponse response, @PathVariable String search_keyword) {
+		System.out.println("getTotalSearchStoreList 요청");
+		return storeService.getTotalSearchStoreList(search_keyword);
 	}
 	
 	/** 매장 전체정보 수정 */

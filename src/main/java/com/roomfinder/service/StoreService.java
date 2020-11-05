@@ -16,6 +16,7 @@ public interface StoreService {
 	public List<StoreVO> getLocationSearchStoreList(String search_keyword);
 	public List<StoreVO> getPriceSearchStoreList(SearchVO vo);
 	public List<StoreVO> getStoreNameSearchStoreList(String search_keyword);
+	public List<StoreVO> getTotalSearchStoreList(String search_keyword);
 	//U
 	public void updateStoreRepresentingImage(StoreVO vo);
 	public void updateStore(StoreVO vo);
