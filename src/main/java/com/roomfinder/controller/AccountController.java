@@ -125,17 +125,29 @@ public class AccountController {
 		return loginAccount;
 	}
 	
-	/** 특정 계정 조회 API */
-	@GetMapping("/{email}")
-	public AccountVO getAccount(HttpServletRequest request, HttpServletResponse response, @PathVariable("email") String email) {
-		System.out.println("getAccount 요청");
-		AccountVO account = null;
-		account = accountService.getAccount(email);
+	/** 유저 조회 API */
+	@GetMapping("/user")
+	public AccountVO getUser(HttpServletRequest request, HttpServletResponse response, @RequestBody UserVO vo) {
+		System.out.println("getUser 요청");
+		AccountVO account = (AccountVO)request.getAttribute("account");
+		UserVO user = null;
+		if(account.getAccount_type().equals("store")) {
+			user = accountService.getUser(vo.getEmail());
+			user.setAccount_type("user");
+		}
+		return user;
+	}
+	
+	/** 본인 조회 API */
+	@GetMapping("/me")
+	public AccountVO getMe(HttpServletRequest request, HttpServletResponse response) {
+		System.out.println("getMe 요청");
+		AccountVO account = (AccountVO)request.getAttribute("account");
 		if(account.getAccount_type().equals("user")) {
-			account = accountService.getUser(email);
+			account = accountService.getUser(account.getEmail());
 			account.setAccount_type("user");
 		} else if(account.getAccount_type().equals("store")) {
-			account = accountService.getStore(email);
+			account = accountService.getStore(account.getEmail());
 			account.setAccount_type("store");
 		}
 		

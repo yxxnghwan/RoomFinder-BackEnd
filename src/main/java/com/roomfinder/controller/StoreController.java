@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.roomfinder.service.AccountService;
 import com.roomfinder.service.StoreService;
 import com.roomfinder.vo.AccountVO;
 import com.roomfinder.vo.RoomVO;
@@ -34,6 +35,9 @@ public class StoreController {
 	
 	@Autowired
 	StoreService storeService;
+	
+	@Autowired
+	AccountService accountService;
 	
 	/** 매장이미지 등록 */
 	@PostMapping("/image")
@@ -123,6 +127,13 @@ public class StoreController {
 			System.out.println("본인만 매장정보 수정 가능");
 			response.setStatus(HttpStatus.UNAUTHORIZED.value());
 		}
+	}
+	
+	/** 매장 상세 조회 */
+	@GetMapping("/{email}")
+	public StoreVO getStore(HttpServletRequest request, HttpServletResponse response, @PathVariable String email) {
+		System.out.println("getStore 요청");
+		return accountService.getStore(email);
 	}
 	
 	/** 매장 이미지 삭제 API */
