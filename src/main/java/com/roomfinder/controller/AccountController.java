@@ -1,5 +1,6 @@
 package com.roomfinder.controller;
 
+import java.io.File;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,17 +9,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.roomfinder.config.LoginManagement;
 import com.roomfinder.mapper.AccountMapper;
@@ -34,6 +39,21 @@ public class AccountController {
 	
 	@Autowired
 	AccountService accountService;
+	
+	@Value("${storage_server_ip}")
+    String storage_server_ip;
+	
+	
+	public String uploadFile(MultipartFile file, String path, String store_email) throws Exception {
+		String filePath = path + "/" + "store_representing_image.jpg";
+	    File destination = new File(filePath);
+	    String url = "http://"+storage_server_ip + "/roomfinderFiles/"+ store_email + "/" + destination.getName();
+	    file.transferTo(destination); // 파일 업로드 작업 수행
+	    System.out.println("경로 : " + url);
+	    return url;
+	}
+	
+	
 	
 	/** 사용자 추가 API */
 	@PostMapping("/user")
@@ -62,11 +82,44 @@ public class AccountController {
 	
 	/** 매장 추가 API */
 	@PostMapping("/store")
-	public void postStore(HttpServletRequest request, HttpServletResponse response, @RequestBody StoreVO vo) {
+	public void postStore(HttpServletRequest request, HttpServletResponse response, @ModelAttribute @RequestBody StoreVO vo) {
 		System.out.println("postStore 요청");
 		System.out.println(vo);
 		vo.setPassword(BCrypt.hashpw(vo.getPassword(), BCrypt.gensalt()));
 		System.out.println("비크립트 해시 : " + vo.getPassword());
+		
+		// 매장 디렉토리 생성
+		String path = "C:\\Apache24\\htdocs\\roomfinderFiles\\" + vo.getEmail(); //폴더 경로
+		File folder = new File(path);
+
+		// 해당 디렉토리가 없을경우 디렉토리를 생성합니다.
+		if (!folder.exists()) {
+			try{
+			    folder.mkdir(); //폴더 생성합니다.
+			    System.out.println(vo.getEmail() + "의 폴더가 생성되었습니다.");
+		        } 
+		        catch(Exception e){
+			    e.getStackTrace();
+			}        
+	         }else {
+			System.out.println("이미 폴더가 생성되어 있습니다.");
+		}
+		
+		
+		
+		// 대표이미지 저장
+		String store_representing_image_res = null;
+		try {
+			store_representing_image_res = uploadFile(vo.getStore_representing_image(), path, vo.getEmail());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("파일입출력 에러");
+		}
+		
+		vo.setStore_representing_image_res(store_representing_image_res);
+		
+		// 디비 추가
 		try {
 			accountService.insertAccount(vo);
 			try {
@@ -75,12 +128,15 @@ public class AccountController {
 			} catch (Exception e) {
 				// TODO: handle exception
 				e.printStackTrace();
-				System.out.println("계정에선 에러 안났는데 스토어에서 에라남 그래서 account삭제해줌");
+				System.out.println("계정에선 에러 안났는데 스토어에서 에라남 그래서 account삭제해줌, 매장 폴더도 삭제");
+				// deleteFile
 				accountService.deleteAccount(vo.getEmail());
 				response.setStatus(HttpStatus.BAD_REQUEST.value());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			System.out.println("insertAccount 에러 폴더 삭제");
+			// deleteFile
 			response.setStatus(HttpStatus.CONFLICT.value());
 		}
 	}
