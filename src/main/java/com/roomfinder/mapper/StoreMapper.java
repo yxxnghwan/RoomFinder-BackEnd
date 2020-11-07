@@ -21,6 +21,7 @@ public interface StoreMapper {
 	public List<StoreVO> getPriceSearchStoreList(SearchVO vo);
 	public List<StoreVO> getStoreNameSearchStoreList(String search_keyword);
 	public List<StoreVO> getTotalSearchStoreList(String search_keyword);
+	public List<StoreImageVO> getStoreImageList(String store_email);
 	//U
 	public void updateStoreRepresentingImage(StoreVO vo);
 	public void updateStore(StoreVO vo);

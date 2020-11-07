@@ -82,4 +82,10 @@ public class StoreServiceImpl implements StoreService {
 		// TODO Auto-generated method stub
 		storeMapper.updateStoreImageRes(vo);
 	}
+	
+	@Override
+	public List<StoreImageVO> getStoreImageList(String store_email) {
+		// TODO Auto-generated method stub
+		return storeMapper.getStoreImageList(store_email);
+	}
 }

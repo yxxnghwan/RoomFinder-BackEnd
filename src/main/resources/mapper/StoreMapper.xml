@@ -40,6 +40,11 @@
 			OR address_line like '%${search_keyword}%'
 		</select>
 		
+		<select id="getStoreImageList" parameterType="String" resultType="com.roomfinder.vo.StoreImageVO">
+			SELECT * FROM STORE_IMAGE
+			WHERE store_email = #{store_email}
+		</select>
+		
 		<update id="updateStoreRepresentingImage" parameterType="com.roomfinder.vo.StoreVO">
 			UPDATE STORE
 			SET store_representing_image_res = #{store_representing_image_res}
