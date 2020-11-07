@@ -98,13 +98,7 @@ public class StoreController {
 	@GetMapping("/list")
 	public List<StoreVO> getStoreList() {
 		System.out.println("getStoreList 요청");
-		List<StoreVO> storeList = storeService.getStoreList();
-		Iterator<StoreVO> itr = storeList.iterator();
-		while(itr.hasNext()) {
-			StoreVO store = itr.next();
-			store.setStore_representing_image_res();
-		}
-		return storeList;
+		return storeService.getStoreList();
 	}
 	
 	/** 대표 이미지 추가  or 변경*/
@@ -140,13 +134,8 @@ public class StoreController {
 	@GetMapping("/location/{search_keyword}")
 	public List<StoreVO> getLocationSearchStoreList(HttpServletRequest request, HttpServletResponse response, @PathVariable String search_keyword) {
 		System.out.println("getLocationSearchStoreList 요청");
-		List<StoreVO> storeList = storeService.getLocationSearchStoreList(search_keyword);
-		Iterator<StoreVO> itr = storeList.iterator();
-		while(itr.hasNext()) {
-			StoreVO store = itr.next();
-			store.setStore_representing_image_res();
-		}
-		return storeList;
+		return storeService.getLocationSearchStoreList(search_keyword);
+		
 	}
 	
 	/** 가격별 매장 검색 */
@@ -156,39 +145,21 @@ public class StoreController {
 		SearchVO vo = new SearchVO();
 		vo.setMin_price(min_price);
 		vo.setMax_price(max_price);
-		List<StoreVO> storeList = storeService.getPriceSearchStoreList(vo);
-		Iterator<StoreVO> itr = storeList.iterator();
-		while(itr.hasNext()) {
-			StoreVO store = itr.next();
-			store.setStore_representing_image_res();
-		}
-		return storeList;
+		return storeService.getPriceSearchStoreList(vo);
 	}
 	
 	/** 매장 이름 검색 */
 	@GetMapping("/name/{search_keyword}")
 	public List<StoreVO> getStoreNameSearchStoreList(HttpServletRequest request, HttpServletResponse response, @PathVariable String search_keyword) {
 		System.out.println("getStoreNameSearchStoreList 요청");
-		List<StoreVO> storeList = storeService.getStoreNameSearchStoreList(search_keyword);
-		Iterator<StoreVO> itr = storeList.iterator();
-		while(itr.hasNext()) {
-			StoreVO store = itr.next();
-			store.setStore_representing_image_res();
-		}
-		return storeList;
+		return storeService.getStoreNameSearchStoreList(search_keyword);
 	}
 	
 	/** 지역이름 또는 매장이름 검색 */
 	@GetMapping("/totalsearch/{search_keyword}")
 	public List<StoreVO> getTotalSearchStoreList(HttpServletRequest request, HttpServletResponse response, @PathVariable String search_keyword) {
 		System.out.println("getTotalSearchStoreList 요청");
-		List<StoreVO> storeList = storeService.getTotalSearchStoreList(search_keyword);
-		Iterator<StoreVO> itr = storeList.iterator();
-		while(itr.hasNext()) {
-			StoreVO store = itr.next();
-			store.setStore_representing_image_res();
-		}
-		return storeList;
+		return storeService.getTotalSearchStoreList(search_keyword);
 	}
 	
 	/** 매장 전체정보 수정 */
@@ -212,7 +183,6 @@ public class StoreController {
 		System.out.println("getStore 요청");
 		StoreVO store = accountService.getStore(email);
 		store.setStore_image_list(storeService.getStoreImageList(email));
-		store.setStore_representing_image_res();
 		return store;
 	}
 	

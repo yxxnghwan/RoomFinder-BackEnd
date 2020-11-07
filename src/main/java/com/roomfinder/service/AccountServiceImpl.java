@@ -49,7 +49,9 @@ public class AccountServiceImpl implements AccountService{
 	@Override
 	public StoreVO getStore(String email) {
 		// TODO Auto-generated method stub
-		return accountMapper.getStore(email);
+		StoreVO store = accountMapper.getStore(email);
+		store.setStore_representing_image_res();
+		return store;
 	}
 	
 	@Override

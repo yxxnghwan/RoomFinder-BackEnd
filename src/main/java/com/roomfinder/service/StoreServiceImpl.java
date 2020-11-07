@@ -1,5 +1,6 @@
 package com.roomfinder.service;
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,13 @@ public class StoreServiceImpl implements StoreService {
 	@Override
 	public List<StoreVO> getStoreList() {
 		// TODO Auto-generated method stub
-		return storeMapper.getStoreList();
+		List<StoreVO> storeList = storeMapper.getStoreList();
+		Iterator<StoreVO> itr = storeList.iterator();
+		while(itr.hasNext()) {
+			StoreVO store = itr.next();
+			store.setStore_representing_image_res();
+		}
+		return storeList;
 	}
 	
 	@Override
@@ -56,25 +63,49 @@ public class StoreServiceImpl implements StoreService {
 	@Override
 	public List<StoreVO> getLocationSearchStoreList(String search_keyword) {
 		// TODO Auto-generated method stub
-		return storeMapper.getLocationSearchStoreList(search_keyword);
+		List<StoreVO> storeList = storeMapper.getLocationSearchStoreList(search_keyword);
+		Iterator<StoreVO> itr = storeList.iterator();
+		while(itr.hasNext()) {
+			StoreVO store = itr.next();
+			store.setStore_representing_image_res();
+		}
+		return storeList;
 	}
 	
 	@Override
 	public List<StoreVO> getPriceSearchStoreList(SearchVO vo) {
 		// TODO Auto-generated method stub
-		return storeMapper.getPriceSearchStoreList(vo);
+		List<StoreVO> storeList = storeMapper.getPriceSearchStoreList(vo);
+		Iterator<StoreVO> itr = storeList.iterator();
+		while(itr.hasNext()) {
+			StoreVO store = itr.next();
+			store.setStore_representing_image_res();
+		}
+		return storeList;
 	}
 	
 	@Override
 	public List<StoreVO> getStoreNameSearchStoreList(String search_keyword) {
 		// TODO Auto-generated method stub
-		return storeMapper.getStoreNameSearchStoreList(search_keyword);
+		List<StoreVO> storeList = storeMapper.getStoreNameSearchStoreList(search_keyword);
+		Iterator<StoreVO> itr = storeList.iterator();
+		while(itr.hasNext()) {
+			StoreVO store = itr.next();
+			store.setStore_representing_image_res();
+		}
+		return storeList;
 	}
 	
 	@Override
 	public List<StoreVO> getTotalSearchStoreList(String search_keyword) {
 		// TODO Auto-generated method stub
-		return storeMapper.getTotalSearchStoreList(search_keyword);
+		List<StoreVO> storeList = storeMapper.getTotalSearchStoreList(search_keyword);
+		Iterator<StoreVO> itr = storeList.iterator();
+		while(itr.hasNext()) {
+			StoreVO store = itr.next();
+			store.setStore_representing_image_res();
+		}
+		return storeList;
 	}
 	
 	@Override
