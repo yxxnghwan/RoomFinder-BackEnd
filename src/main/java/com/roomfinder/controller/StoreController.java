@@ -178,7 +178,9 @@ public class StoreController {
 	@GetMapping("/{email}")
 	public StoreVO getStore(HttpServletRequest request, HttpServletResponse response, @PathVariable String email) {
 		System.out.println("getStore 요청");
-		return accountService.getStore(email);
+		StoreVO store = accountService.getStore(email);
+		store.setStore_image_list(storeService.getStoreImageList(email));
+		return store;
 	}
 	
 	/** 매장 이미지 삭제 API */

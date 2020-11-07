@@ -99,6 +99,7 @@ public class AccountController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.out.println("파일입출력 에러");
+			return;
 		}
 		
 		vo.setStore_representing_image_res(store_representing_image_res);

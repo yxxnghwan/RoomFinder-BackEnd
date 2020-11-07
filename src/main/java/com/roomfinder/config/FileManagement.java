@@ -36,6 +36,26 @@ public class FileManagement {
 	    System.out.println("경로 : " + url);
 	    return url;
 	}
+	
+	static public String uploadRoomRepresentingImage(MultipartFile file, String path, String store_email, String roomDirectory) throws Exception {
+		String extension = "";
+		String originalFileName = file.getOriginalFilename().toLowerCase();
+		if(originalFileName.endsWith(".jpg")) {
+			extension = ".jpg";
+		} else if(originalFileName.endsWith(".jpeg")) {
+			extension = ".jpeg";
+		} else if(originalFileName.endsWith(".png")) {
+			extension = ".png";
+		} else {
+			return null;
+		}
+		String filePath = path + "/" + "room_representing_image" + extension;
+	    File destination = new File(filePath);
+	    String url = "http://"+storage_server_ip + "/roomfinderFiles/"+ store_email + "/" + roomDirectory + "/" + destination.getName();
+	    file.transferTo(destination); // 파일 업로드 작업 수행
+	    System.out.println("경로 : " + url);
+	    return url;
+	}
 
 	static public String[] uploadStoreImage(MultipartFile file, String path, String store_email) throws Exception {
 		String extension = "";

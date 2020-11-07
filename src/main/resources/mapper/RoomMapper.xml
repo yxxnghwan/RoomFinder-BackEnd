@@ -7,8 +7,8 @@
 		
 		
 		<insert id="insertRoom" parameterType="com.roomfinder.vo.RoomVO">
-			INSERT INTO ROOM(room_name, price_per_hour, description, capacity, room_representing_image_res, store_email)
-			VALUES(#{room_name}, #{price_per_hour}, #{description}, #{capacity}, #{room_representing_image_res}, #{store_email})
+			INSERT INTO ROOM(room_name, price_per_hour, description, capacity, room_representing_image_res, directory_name ,store_email)
+			VALUES(#{room_name}, #{price_per_hour}, #{description}, #{capacity}, #{room_representing_image_res}, #{directory_name}, #{store_email})
 		</insert>
 		
 		<insert id="insertRoomImage" parameterType="com.roomfinder.vo.RoomImageVO">

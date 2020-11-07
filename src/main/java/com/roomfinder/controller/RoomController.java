@@ -1,5 +1,6 @@
 package com.roomfinder.controller;
 
+import java.io.File;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.roomfinder.config.FileManagement;
 import com.roomfinder.service.ReservationService;
 import com.roomfinder.service.RoomService;
 import com.roomfinder.vo.AccountVO;
@@ -44,13 +47,54 @@ public class RoomController {
 	
 	/** 스터디룸 등록 */
 	@PostMapping
-	public void postRoom(HttpServletRequest request, HttpServletResponse response, @RequestBody RoomVO vo) {
+	public void postRoom(HttpServletRequest request, HttpServletResponse response, @ModelAttribute @RequestBody RoomVO vo) {
 		System.out.println("postRoom 요청");
 		System.out.println(vo);
 		AccountVO account = (AccountVO)request.getAttribute("account");
 		if(account.getEmail().equals(vo.getStore_email())) { // 로그인 된 본인이면	
-			roomService.insertRoom(vo);
-			response.setStatus(HttpStatus.CREATED.value());
+			
+			// 룸 디렉토리 생성
+			String roomDirectory = "room_" + System.currentTimeMillis();
+			String path = "C:\\Apache24\\htdocs\\roomfinderFiles\\" + vo.getStore_email() + "\\" + roomDirectory; //폴더 경로
+			File folder = new File(path);
+
+			// 해당 디렉토리가 없을경우 디렉토리를 생성합니다.
+			if (!folder.exists()) {
+				try{
+				    folder.mkdir(); //폴더 생성합니다.
+				    System.out.println(vo.getStore_email() + "의 폴더가 생성되었습니다.");
+			        } 
+			        catch(Exception e){
+				    e.getStackTrace();
+				}        
+		         }else {
+				System.out.println("이미 폴더가 생성되어 있습니다.");
+			}
+			
+			//대표 이미지 저장
+			String room_representing_image_res = null;
+			try {
+				room_representing_image_res = FileManagement.uploadRoomRepresentingImage(vo.getRoom_representing_image(), path, vo.getStore_email(), roomDirectory);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				System.out.println("파일입출력 에러");
+				return;
+			}
+			vo.setRoom_representing_image_res(room_representing_image_res);
+			vo.setDirectory_name(roomDirectory);
+			// 디비추가
+
+			try {
+				roomService.insertRoom(vo);
+				response.setStatus(HttpStatus.CREATED.value());
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+				System.out.println("리소스 생성됐는데 디비 넣다 에러났음 그래서 디렉토리 지워버릴거");
+				FileManagement.deleteDirectory(path);
+				response.setStatus(HttpStatus.BAD_REQUEST.value());
+			}
 			
 		} else {
 			System.out.println("본인만 스터디룸 등록 가능");

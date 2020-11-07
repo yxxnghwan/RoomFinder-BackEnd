@@ -1,5 +1,7 @@
 package com.roomfinder.vo;
 
+import java.util.List;
+
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Data;
@@ -14,4 +16,5 @@ public @Data class StoreVO extends AccountVO {
 	private String description;
 	private String store_representing_image_res;
 	private MultipartFile store_representing_image;
+	private List<StoreImageVO> store_image_list;
 }
