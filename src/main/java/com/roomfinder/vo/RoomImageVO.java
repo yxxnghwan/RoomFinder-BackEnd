@@ -10,4 +10,5 @@ public @Data class RoomImageVO {
 	private int room_seq;
 	MultipartFile room_image;
 	private String file_name;
+	private String directory_name;
 }

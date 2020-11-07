@@ -17,4 +17,5 @@ public @Data class RoomVO {
 	private String store_email;
 	private MultipartFile room_representing_image;
 	private List<RoomImageVO> room_image_list;
+	private String representing_image_extension;
 }

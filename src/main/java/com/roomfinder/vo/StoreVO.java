@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.roomfinder.config.FileManagement;
+
 import lombok.Data;
 
 public @Data class StoreVO extends AccountVO {
@@ -17,4 +19,9 @@ public @Data class StoreVO extends AccountVO {
 	private String store_representing_image_res;
 	private MultipartFile store_representing_image;
 	private List<StoreImageVO> store_image_list;
+	private String representing_image_extension;
+	
+	public void setStore_representing_image_res() {
+		this.store_representing_image_res = "http://" + FileManagement.getStorage_server_end_point() + "/roomfinderFiles/" +this.getEmail() + "/store_representing_image" + this.getRepresenting_image_extension();
+	}
 }

@@ -57,7 +57,7 @@ public class RoomController {
 			String roomDirectory = "room_" + System.currentTimeMillis();
 			String path = "C:\\Apache24\\htdocs\\roomfinderFiles\\" + vo.getStore_email() + "\\" + roomDirectory; //폴더 경로
 			File folder = new File(path);
-
+			String representing_image_extension = null;
 			// 해당 디렉토리가 없을경우 디렉토리를 생성합니다.
 			if (!folder.exists()) {
 				try{
@@ -72,17 +72,16 @@ public class RoomController {
 			}
 			
 			//대표 이미지 저장
-			String room_representing_image_res = null;
 			try {
-				room_representing_image_res = FileManagement.uploadRoomRepresentingImage(vo.getRoom_representing_image(), path, vo.getStore_email(), roomDirectory);
+				representing_image_extension = FileManagement.uploadRoomRepresentingImage(vo.getRoom_representing_image(), path, vo.getStore_email(), roomDirectory);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 				System.out.println("파일입출력 에러");
 				return;
 			}
-			vo.setRoom_representing_image_res(room_representing_image_res);
 			vo.setDirectory_name(roomDirectory);
+			vo.setRepresenting_image_extension(representing_image_extension);
 			// 디비추가
 
 			try {
@@ -114,7 +113,7 @@ public class RoomController {
 			// 룸 디렉토리 생성
 			String path = "C:\\Apache24\\htdocs\\roomfinderFiles\\" + room.getStore_email() + "\\" + room.getDirectory_name(); //폴더 경로
 			File folder = new File(path);
-			String [] uploadResult = new String[2];
+			String file_name = null;
 			// 해당 디렉토리가 없을경우 디렉토리를 생성합니다.
 			if (!folder.exists()) {
 				try{
@@ -129,9 +128,8 @@ public class RoomController {
 			}
 			
 			try {
-				uploadResult = FileManagement.uploadRoomImage(vo.getRoom_image(), path, room.getStore_email(), room.getDirectory_name());
-				vo.setRoom_image_res(uploadResult[0]);
-				vo.setFile_name(uploadResult[1]);
+				file_name = FileManagement.uploadRoomImage(vo.getRoom_image(), path, room.getStore_email(), room.getDirectory_name());
+				vo.setFile_name(file_name);
 				System.out.println("이미지 업로드 성공");
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -147,7 +145,7 @@ public class RoomController {
 				// TODO: handle exception
 				e.printStackTrace();
 				System.out.println("리소스업로드는 했는데 디비에서 에러났어 그래서 리소스 지워줄거임");
-				FileManagement.deleteFile(path+uploadResult[1]);
+				FileManagement.deleteFile(path+"/"+file_name);
 			}
 			
 		} else {

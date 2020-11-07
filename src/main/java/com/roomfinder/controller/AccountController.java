@@ -77,7 +77,7 @@ public class AccountController {
 		// 매장 디렉토리 생성
 		String path = "C:\\Apache24\\htdocs\\roomfinderFiles\\" + vo.getEmail(); //폴더 경로
 		File folder = new File(path);
-
+		String representing_image_extension = null;
 		// 해당 디렉토리가 없을경우 디렉토리를 생성합니다.
 		if (!folder.exists()) {
 			try{
@@ -92,18 +92,15 @@ public class AccountController {
 		}
 		
 		// 대표이미지 저장
-		String store_representing_image_res = null;
 		try {
-			store_representing_image_res = FileManagement.uploadStoreRepresentingImage(vo.getStore_representing_image(), path, vo.getEmail());
+			representing_image_extension = FileManagement.uploadStoreRepresentingImage(vo.getStore_representing_image(), path, vo.getEmail());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.out.println("파일입출력 에러");
 			return;
 		}
-		
-		vo.setStore_representing_image_res(store_representing_image_res);
-		
+		vo.setRepresenting_image_extension(representing_image_extension);
 		// 디비 추가
 		try {
 			accountService.insertAccount(vo);

@@ -1,6 +1,8 @@
 package com.roomfinder.controller;
 
 import java.io.File;
+import java.util.Enumeration;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -53,7 +55,7 @@ public class StoreController {
 			// 매장 디렉토리 생성
 			String path = "C:\\Apache24\\htdocs\\roomfinderFiles\\" + vo.getStore_email(); //폴더 경로
 			File folder = new File(path);
-			String [] uploadResult = new String[2];
+			String file_name = null;
 			// 해당 디렉토리가 없을경우 디렉토리를 생성합니다.
 			if (!folder.exists()) {
 				try{
@@ -68,9 +70,8 @@ public class StoreController {
 			}
 			
 			try {
-				uploadResult = FileManagement.uploadStoreImage(vo.getStore_image(), path, vo.getStore_email());
-				vo.setStore_image_res(uploadResult[0]);
-				vo.setFile_name(uploadResult[1]);
+				file_name = FileManagement.uploadStoreImage(vo.getStore_image(), path, vo.getStore_email());
+				vo.setFile_name(file_name);
 				System.out.println("이미지 업로드 성공");
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -85,7 +86,7 @@ public class StoreController {
 				// TODO: handle exception
 				e.printStackTrace();
 				System.out.println("리소스업로드는 했는데 디비에서 에러났어 그래서 리소스 지워줄거임");
-				FileManagement.deleteFile(path+uploadResult[1]);
+				FileManagement.deleteFile(path+"/"+file_name);
 			}
 		} else {
 			System.out.println("본인만 이미지 추가 가능");
@@ -97,7 +98,13 @@ public class StoreController {
 	@GetMapping("/list")
 	public List<StoreVO> getStoreList() {
 		System.out.println("getStoreList 요청");
-		return storeService.getStoreList();
+		List<StoreVO> storeList = storeService.getStoreList();
+		Iterator<StoreVO> itr = storeList.iterator();
+		while(itr.hasNext()) {
+			StoreVO store = itr.next();
+			store.setStore_representing_image_res();
+		}
+		return storeList;
 	}
 	
 	/** 대표 이미지 추가  or 변경*/
@@ -133,7 +140,13 @@ public class StoreController {
 	@GetMapping("/location/{search_keyword}")
 	public List<StoreVO> getLocationSearchStoreList(HttpServletRequest request, HttpServletResponse response, @PathVariable String search_keyword) {
 		System.out.println("getLocationSearchStoreList 요청");
-		return storeService.getLocationSearchStoreList(search_keyword);
+		List<StoreVO> storeList = storeService.getLocationSearchStoreList(search_keyword);
+		Iterator<StoreVO> itr = storeList.iterator();
+		while(itr.hasNext()) {
+			StoreVO store = itr.next();
+			store.setStore_representing_image_res();
+		}
+		return storeList;
 	}
 	
 	/** 가격별 매장 검색 */
@@ -143,21 +156,39 @@ public class StoreController {
 		SearchVO vo = new SearchVO();
 		vo.setMin_price(min_price);
 		vo.setMax_price(max_price);
-		return storeService.getPriceSearchStoreList(vo);
+		List<StoreVO> storeList = storeService.getPriceSearchStoreList(vo);
+		Iterator<StoreVO> itr = storeList.iterator();
+		while(itr.hasNext()) {
+			StoreVO store = itr.next();
+			store.setStore_representing_image_res();
+		}
+		return storeList;
 	}
 	
 	/** 매장 이름 검색 */
 	@GetMapping("/name/{search_keyword}")
 	public List<StoreVO> getStoreNameSearchStoreList(HttpServletRequest request, HttpServletResponse response, @PathVariable String search_keyword) {
 		System.out.println("getStoreNameSearchStoreList 요청");
-		return storeService.getStoreNameSearchStoreList(search_keyword);
+		List<StoreVO> storeList = storeService.getStoreNameSearchStoreList(search_keyword);
+		Iterator<StoreVO> itr = storeList.iterator();
+		while(itr.hasNext()) {
+			StoreVO store = itr.next();
+			store.setStore_representing_image_res();
+		}
+		return storeList;
 	}
 	
 	/** 지역이름 또는 매장이름 검색 */
 	@GetMapping("/totalsearch/{search_keyword}")
 	public List<StoreVO> getTotalSearchStoreList(HttpServletRequest request, HttpServletResponse response, @PathVariable String search_keyword) {
 		System.out.println("getTotalSearchStoreList 요청");
-		return storeService.getTotalSearchStoreList(search_keyword);
+		List<StoreVO> storeList = storeService.getTotalSearchStoreList(search_keyword);
+		Iterator<StoreVO> itr = storeList.iterator();
+		while(itr.hasNext()) {
+			StoreVO store = itr.next();
+			store.setStore_representing_image_res();
+		}
+		return storeList;
 	}
 	
 	/** 매장 전체정보 수정 */
@@ -181,6 +212,7 @@ public class StoreController {
 		System.out.println("getStore 요청");
 		StoreVO store = accountService.getStore(email);
 		store.setStore_image_list(storeService.getStoreImageList(email));
+		store.setStore_representing_image_res();
 		return store;
 	}
 	

@@ -9,14 +9,18 @@ import org.springframework.web.multipart.MultipartFile;
 @Configuration
 public class FileManagement {
 	
-	@Value("${storage_server_ip}")
-    private static String storage_server_ip;
+	@Value("${storage_server_end_point}")
+    private static String storage_server_end_point;
 	
-	@Value("${storage_server_ip}")
+	@Value("${storage_server_end_point}")
 	public void setStorage_server_ip(String storage_server_ip) {
-		this.storage_server_ip = storage_server_ip;
+		this.storage_server_end_point = storage_server_ip;
 	}
 	
+	public static String getStorage_server_end_point() {
+		return storage_server_end_point;
+	}
+
 	static public String uploadStoreRepresentingImage(MultipartFile file, String path, String store_email) throws Exception {
 		String extension = "";
 		String originalFileName = file.getOriginalFilename().toLowerCase();
@@ -27,14 +31,14 @@ public class FileManagement {
 		} else if(originalFileName.endsWith(".png")) {
 			extension = ".png";
 		} else {
+			System.out.println("파일 확장자명 오류");
 			return null;
 		}
 		String filePath = path + "/" + "store_representing_image" + extension;
 	    File destination = new File(filePath);
-	    String url = "http://"+storage_server_ip + "/roomfinderFiles/"+ store_email + "/" + destination.getName();
+	    //String url = "http://"+storage_server_end_point + "/roomfinderFiles/"+ store_email + "/" + destination.getName();
 	    file.transferTo(destination); // 파일 업로드 작업 수행
-	    System.out.println("경로 : " + url);
-	    return url;
+	    return extension;
 	}
 	
 	static public String uploadRoomRepresentingImage(MultipartFile file, String path, String store_email, String roomDirectory) throws Exception {
@@ -47,17 +51,17 @@ public class FileManagement {
 		} else if(originalFileName.endsWith(".png")) {
 			extension = ".png";
 		} else {
+			System.out.println("파일 확장자명 오류");
 			return null;
 		}
 		String filePath = path + "/" + "room_representing_image" + extension;
 	    File destination = new File(filePath);
-	    String url = "http://"+storage_server_ip + "/roomfinderFiles/"+ store_email + "/" + roomDirectory + "/" + destination.getName();
+	    //String url = "http://"+storage_server_end_point + "/roomfinderFiles/"+ store_email + "/" + roomDirectory + "/" + destination.getName();
 	    file.transferTo(destination); // 파일 업로드 작업 수행
-	    System.out.println("경로 : " + url);
-	    return url;
+	    return extension;
 	}
 
-	static public String[] uploadStoreImage(MultipartFile file, String path, String store_email) throws Exception {
+	static public String uploadStoreImage(MultipartFile file, String path, String store_email) throws Exception {
 		String extension = "";
 		String originalFileName = file.getOriginalFilename().toLowerCase();
 		if(originalFileName.endsWith(".jpg")) {
@@ -67,18 +71,17 @@ public class FileManagement {
 		} else if(originalFileName.endsWith(".png")) {
 			extension = ".png";
 		} else {
+			System.out.println("파일 확장자명 오류");
 			return null;
 		}
 		String filePath = path + "/" + System.currentTimeMillis() + extension;
 	    File destination = new File(filePath);
-	    String url = "http://"+storage_server_ip + "/roomfinderFiles/"+ store_email + "/" + destination.getName();
+	    //String url = "http://"+storage_server_end_point + "/roomfinderFiles/"+ store_email + "/" + destination.getName();
 	    file.transferTo(destination); // 파일 업로드 작업 수행
-	    System.out.println("경로 : " + url);
-	    String [] result = {url, destination.getName()};
-	    return result;
+	    return destination.getName();
 	}
 	
-	static public String[] uploadRoomImage(MultipartFile file, String path, String store_email, String roomDirectory) throws Exception {
+	static public String uploadRoomImage(MultipartFile file, String path, String store_email, String roomDirectory) throws Exception {
 		String extension = "";
 		String originalFileName = file.getOriginalFilename().toLowerCase();
 		if(originalFileName.endsWith(".jpg")) {
@@ -92,11 +95,9 @@ public class FileManagement {
 		}
 		String filePath = path + "/" + System.currentTimeMillis() + extension;
 	    File destination = new File(filePath);
-	    String url = "http://"+storage_server_ip + "/roomfinderFiles/"+ store_email + "/" + roomDirectory + "/" + destination.getName();
+	    //String url = "http://"+storage_server_end_point + "/roomfinderFiles/"+ store_email + "/" + roomDirectory + "/" + destination.getName();
 	    file.transferTo(destination); // 파일 업로드 작업 수행
-	    System.out.println("경로 : " + url);
-	    String [] result = {url, destination.getName()};
-	    return result;
+	    return destination.getName();
 	}
 	
 	static public void deleteDirectory(String directoryPath) {

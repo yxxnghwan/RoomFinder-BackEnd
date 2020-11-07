@@ -7,13 +7,13 @@
 		
 		
 		<insert id="insertRoom" parameterType="com.roomfinder.vo.RoomVO">
-			INSERT INTO ROOM(room_name, price_per_hour, description, capacity, room_representing_image_res, directory_name ,store_email)
-			VALUES(#{room_name}, #{price_per_hour}, #{description}, #{capacity}, #{room_representing_image_res}, #{directory_name}, #{store_email})
+			INSERT INTO ROOM(room_name, price_per_hour, description, capacity, directory_name ,store_email, representing_image_extension)
+			VALUES(#{room_name}, #{price_per_hour}, #{description}, #{capacity}, #{directory_name}, #{store_email}, #{representing_image_extension})
 		</insert>
 		
 		<insert id="insertRoomImage" parameterType="com.roomfinder.vo.RoomImageVO">
-			INSERT INTO ROOM_IMAGE(room_image_res, room_seq, file_name)
-			VALUES(#{room_image_res}, #{room_seq}, #{file_name})
+			INSERT INTO ROOM_IMAGE(room_seq, file_name)
+			VALUES(#{room_seq}, #{file_name})
 		</insert>
 		
 		<select id="getRoom" parameterType="int" resultType="com.roomfinder.vo.RoomVO">
@@ -27,8 +27,9 @@
 		</select>
 		
 		<select id="getRoomImageList" parameterType="int" resultType="com.roomfinder.vo.RoomImageVO">
-			SELECT * FROM ROOM_IMAGE
-			WHERE room_seq = #{room_seq}
+			SELECT ROOM_IMAGE.*, ROOM.directory_name as directory_name FROM ROOM_IMAGE, ROOM
+			WHERE ROOM_IMAGE.room_seq = ROOM.room_seq
+			AND ROOM_IMAGE.room_seq = #{room_seq}
 		</select>
 		
 		<update id="updateRoom" parameterType="com.roomfinder.vo.RoomVO">

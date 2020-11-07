@@ -15,8 +15,8 @@
 		</insert>
 		
 		<insert id="insertStore" parameterType="com.roomfinder.vo.StoreVO">
-			INSERT INTO STORE(email, store_name, company_id, address_line, telephone, operating_time, description, store_representing_image_res)
-			VALUES(#{email}, #{store_name}, #{company_id}, #{address_line}, #{telephone}, #{operating_time}, #{description}, #{store_representing_image_res})
+			INSERT INTO STORE(email, store_name, company_id, address_line, telephone, operating_time, description, representing_image_extension)
+			VALUES(#{email}, #{store_name}, #{company_id}, #{address_line}, #{telephone}, #{operating_time}, #{description}, #{representing_image_extension})
 		</insert>
 		
 		<select id="getAccount" parameterType="String" resultType="com.roomfinder.vo.AccountVO">
