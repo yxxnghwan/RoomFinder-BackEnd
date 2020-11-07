@@ -78,6 +78,27 @@ public class FileManagement {
 	    return result;
 	}
 	
+	static public String[] uploadRoomImage(MultipartFile file, String path, String store_email, String roomDirectory) throws Exception {
+		String extension = "";
+		String originalFileName = file.getOriginalFilename().toLowerCase();
+		if(originalFileName.endsWith(".jpg")) {
+			extension = ".jpg";
+		} else if(originalFileName.endsWith(".jpeg")) {
+			extension = ".jpeg";
+		} else if(originalFileName.endsWith(".png")) {
+			extension = ".png";
+		} else {
+			return null;
+		}
+		String filePath = path + "/" + System.currentTimeMillis() + extension;
+	    File destination = new File(filePath);
+	    String url = "http://"+storage_server_ip + "/roomfinderFiles/"+ store_email + "/" + roomDirectory + "/" + destination.getName();
+	    file.transferTo(destination); // 파일 업로드 작업 수행
+	    System.out.println("경로 : " + url);
+	    String [] result = {url, destination.getName()};
+	    return result;
+	}
+	
 	static public void deleteDirectory(String directoryPath) {
 		File folder = new File(directoryPath);
 		try {

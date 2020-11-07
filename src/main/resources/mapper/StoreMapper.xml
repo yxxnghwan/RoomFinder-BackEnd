@@ -5,8 +5,8 @@
 	
 	<mapper namespace="com.roomfinder.mapper.StoreMapper">
 		<insert id="insertStoreImage" parameterType="com.roomfinder.vo.StoreImageVO">
-			INSERT INTO STORE_IMAGE(store_image_res, store_email)
-			values(#{store_image_res}, #{store_email})
+			INSERT INTO STORE_IMAGE(store_image_res, store_email, file_name)
+			values(#{store_image_res}, #{store_email}, #{file_name})
 		</insert>
 		
 		<select id="getStoreList" resultType="com.roomfinder.vo.StoreVO">

@@ -104,14 +104,51 @@ public class RoomController {
 	
 	/** 스터디룸 이미지 등록 */
 	@PostMapping("/image")
-	public void postRoomImage(HttpServletRequest request, HttpServletResponse response, @RequestBody RoomImageVO vo) {
+	public void postRoomImage(HttpServletRequest request, HttpServletResponse response, @ModelAttribute @RequestBody RoomImageVO vo) {
 		System.out.println("postRoomImage 요청");
 		System.out.println(vo);
 		AccountVO account = (AccountVO)request.getAttribute("account");
 		RoomVO room = roomService.getRoom(vo.getRoom_seq());
 		if(account.getEmail().equals(room.getStore_email())) { // 로그인 된 본인이면	
-			roomService.insertRoomImage(vo);
-			response.setStatus(HttpStatus.CREATED.value());
+			
+			// 룸 디렉토리 생성
+			String path = "C:\\Apache24\\htdocs\\roomfinderFiles\\" + room.getStore_email() + "\\" + room.getDirectory_name(); //폴더 경로
+			File folder = new File(path);
+			String [] uploadResult = new String[2];
+			// 해당 디렉토리가 없을경우 디렉토리를 생성합니다.
+			if (!folder.exists()) {
+				try{
+				    folder.mkdir(); //폴더 생성합니다.
+				    System.out.println(room.getStore_email() + "의 폴더가 생성되었습니다.");
+			        } 
+			        catch(Exception e){
+				    e.getStackTrace();
+				}        
+		         }else {
+				System.out.println("이미 폴더가 생성되어 있습니다.");
+			}
+			
+			try {
+				uploadResult = FileManagement.uploadRoomImage(vo.getRoom_image(), path, room.getStore_email(), room.getDirectory_name());
+				vo.setRoom_image_res(uploadResult[0]);
+				vo.setFile_name(uploadResult[1]);
+				System.out.println("이미지 업로드 성공");
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				System.out.println("이미지 업로드 에러");
+				return;
+			}
+			
+			try {
+				roomService.insertRoomImage(vo);
+				response.setStatus(HttpStatus.CREATED.value());
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+				System.out.println("리소스업로드는 했는데 디비에서 에러났어 그래서 리소스 지워줄거임");
+				FileManagement.deleteFile(path+uploadResult[1]);
+			}
 			
 		} else {
 			System.out.println("본인만 스터디룸 이미지 등록 가능");

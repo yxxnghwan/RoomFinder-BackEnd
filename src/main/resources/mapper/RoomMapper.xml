@@ -12,8 +12,8 @@
 		</insert>
 		
 		<insert id="insertRoomImage" parameterType="com.roomfinder.vo.RoomImageVO">
-			INSERT INTO ROOM_IMAGE(room_image_res, room_seq)
-			VALUES(#{room_image_res}, #{room_seq})
+			INSERT INTO ROOM_IMAGE(room_image_res, room_seq, file_name)
+			VALUES(#{room_image_res}, #{room_seq}, #{file_name})
 		</insert>
 		
 		<select id="getRoom" parameterType="int" resultType="com.roomfinder.vo.RoomVO">

@@ -9,4 +9,5 @@ public @Data class StoreImageVO {
 	private String store_image_res;
 	private String store_email;
 	private MultipartFile store_image;
+	private String file_name;
 }

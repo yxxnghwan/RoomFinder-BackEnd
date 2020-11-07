@@ -70,6 +70,7 @@ public class StoreController {
 			try {
 				uploadResult = FileManagement.uploadStoreImage(vo.getStore_image(), path, vo.getStore_email());
 				vo.setStore_image_res(uploadResult[0]);
+				vo.setFile_name(uploadResult[1]);
 				System.out.println("이미지 업로드 성공");
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
