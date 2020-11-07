@@ -76,4 +76,10 @@ public class StoreServiceImpl implements StoreService {
 		// TODO Auto-generated method stub
 		return storeMapper.getTotalSearchStoreList(search_keyword);
 	}
+	
+	@Override
+	public void updateStoreImageRes(StoreImageVO vo) {
+		// TODO Auto-generated method stub
+		storeMapper.updateStoreImageRes(vo);
+	}
 }

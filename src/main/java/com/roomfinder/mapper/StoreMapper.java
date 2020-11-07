@@ -24,6 +24,7 @@ public interface StoreMapper {
 	//U
 	public void updateStoreRepresentingImage(StoreVO vo);
 	public void updateStore(StoreVO vo);
+	public void updateStoreImageRes(StoreImageVO vo);
 	//D
 	public void deleteStoreImage(StoreImageVO vo);
 }

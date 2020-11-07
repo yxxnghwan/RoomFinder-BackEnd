@@ -57,6 +57,12 @@
 			WHERE email = #{email}
 		</update>
 		
+		<update id="updateStoreImageRes" parameterType="com.roomfinder.vo.StoreImageVO">
+			UPDATE STORE_IMAGE
+			SET store_image_res = #{store_image_res}
+			WHERE store_iamge_seq = #{store_iamge_seq}
+		</update>
+		
 		<delete id="deleteStoreImage" parameterType="com.roomfinder.vo.StoreImageVO">
 			DELETE FROM STORE_IMAGE
 			WHERE store_image_seq = #{store_image_seq}

@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.roomfinder.config.FileManagement;
 import com.roomfinder.config.LoginManagement;
 import com.roomfinder.mapper.AccountMapper;
 import com.roomfinder.service.AccountService;
@@ -39,21 +40,6 @@ public class AccountController {
 	
 	@Autowired
 	AccountService accountService;
-	
-	@Value("${storage_server_ip}")
-    String storage_server_ip;
-	
-	
-	public String uploadFile(MultipartFile file, String path, String store_email) throws Exception {
-		String filePath = path + "/" + "store_representing_image.jpg";
-	    File destination = new File(filePath);
-	    String url = "http://"+storage_server_ip + "/roomfinderFiles/"+ store_email + "/" + destination.getName();
-	    file.transferTo(destination); // 파일 업로드 작업 수행
-	    System.out.println("경로 : " + url);
-	    return url;
-	}
-	
-	
 	
 	/** 사용자 추가 API */
 	@PostMapping("/user")
@@ -105,12 +91,10 @@ public class AccountController {
 			System.out.println("이미 폴더가 생성되어 있습니다.");
 		}
 		
-		
-		
 		// 대표이미지 저장
 		String store_representing_image_res = null;
 		try {
-			store_representing_image_res = uploadFile(vo.getStore_representing_image(), path, vo.getEmail());
+			store_representing_image_res = FileManagement.uploadStoreRepresentingImage(vo.getStore_representing_image(), path, vo.getEmail());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -129,14 +113,14 @@ public class AccountController {
 				// TODO: handle exception
 				e.printStackTrace();
 				System.out.println("계정에선 에러 안났는데 스토어에서 에라남 그래서 account삭제해줌, 매장 폴더도 삭제");
-				// deleteFile
+				FileManagement.deleteDirectory(path);
 				accountService.deleteAccount(vo.getEmail());
 				response.setStatus(HttpStatus.BAD_REQUEST.value());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("insertAccount 에러 폴더 삭제");
-			// deleteFile
+			FileManagement.deleteDirectory(path);
 			response.setStatus(HttpStatus.CONFLICT.value());
 		}
 	}
