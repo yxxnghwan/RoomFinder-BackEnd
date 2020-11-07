@@ -51,7 +51,9 @@ public class StoreServiceImpl implements StoreService {
 	@Override
 	public StoreImageVO getStoreImage(int store_image_seq) {
 		// TODO Auto-generated method stub
-		return storeMapper.getStoreImage(store_image_seq);
+		StoreImageVO storeImage = storeMapper.getStoreImage(store_image_seq);
+		storeImage.setStore_image_res();
+		return storeImage;
 	}
 	
 	@Override
@@ -117,6 +119,12 @@ public class StoreServiceImpl implements StoreService {
 	@Override
 	public List<StoreImageVO> getStoreImageList(String store_email) {
 		// TODO Auto-generated method stub
-		return storeMapper.getStoreImageList(store_email);
+		List<StoreImageVO> storeImageList = storeMapper.getStoreImageList(store_email);
+		Iterator<StoreImageVO> itr = storeImageList.iterator();
+		while(itr.hasNext()) {
+			StoreImageVO storeImage = itr.next();
+			storeImage.setStore_image_res();
+		}
+		return storeImageList;
 	}
 }

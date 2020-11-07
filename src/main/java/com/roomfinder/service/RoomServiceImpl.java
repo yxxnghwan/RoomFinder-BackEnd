@@ -1,5 +1,6 @@
 package com.roomfinder.service;
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,13 +31,21 @@ public class RoomServiceImpl implements RoomService{
 	@Override
 	public RoomVO getRoom(int room_seq) {
 		// TODO Auto-generated method stub
-		return roomMapper.getRoom(room_seq);
+		RoomVO room = roomMapper.getRoom(room_seq);
+		room.setRoom_representing_image_res();
+		return room;
 	}
 	
 	@Override
 	public List<RoomVO> getRoomList(String store_email) {
 		// TODO Auto-generated method stub
-		return roomMapper.getRoomList(store_email);
+		List<RoomVO> roomList = roomMapper.getRoomList(store_email);
+		Iterator<RoomVO> itr = roomList.iterator();
+		while(itr.hasNext()) {
+			RoomVO room = itr.next();
+			room.setRoom_representing_image_res();
+		}
+		return roomList;
 	}
 	
 	@Override
@@ -48,7 +57,13 @@ public class RoomServiceImpl implements RoomService{
 	@Override
 	public List<RoomImageVO> getRoomImageList(int room_seq) {
 		// TODO Auto-generated method stub
-		return roomMapper.getRoomImageList(room_seq);
+		List<RoomImageVO> roomImageList = roomMapper.getRoomImageList(room_seq);
+		Iterator<RoomImageVO> itr = roomImageList.iterator();
+		while(itr.hasNext()) {
+			RoomImageVO roomImage = itr.next();
+			roomImage.setRoom_image_res();
+		}
+		return roomImageList;
 	}
 	
 	@Override

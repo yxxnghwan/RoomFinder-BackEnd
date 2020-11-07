@@ -75,7 +75,7 @@ public class AccountController {
 		System.out.println("비크립트 해시 : " + vo.getPassword());
 		
 		// 매장 디렉토리 생성
-		String path = "C:\\Apache24\\htdocs\\roomfinderFiles\\" + vo.getEmail(); //폴더 경로
+		String path = FileManagement.getResource_directory_path() + "/" + vo.getEmail(); //폴더 경로
 		File folder = new File(path);
 		String representing_image_extension = null;
 		// 해당 디렉토리가 없을경우 디렉토리를 생성합니다.

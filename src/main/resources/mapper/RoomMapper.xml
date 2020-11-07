@@ -27,7 +27,7 @@
 		</select>
 		
 		<select id="getRoomImageList" parameterType="int" resultType="com.roomfinder.vo.RoomImageVO">
-			SELECT ROOM_IMAGE.*, ROOM.directory_name as directory_name FROM ROOM_IMAGE, ROOM
+			SELECT ROOM_IMAGE.*, ROOM.directory_name as directory_name, ROOM.store_email as email FROM ROOM_IMAGE, ROOM
 			WHERE ROOM_IMAGE.room_seq = ROOM.room_seq
 			AND ROOM_IMAGE.room_seq = #{room_seq}
 		</select>

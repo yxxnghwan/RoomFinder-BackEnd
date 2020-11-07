@@ -2,6 +2,8 @@ package com.roomfinder.vo;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.roomfinder.config.FileManagement;
+
 import lombok.Data;
 
 public @Data class RoomImageVO {
@@ -11,4 +13,9 @@ public @Data class RoomImageVO {
 	MultipartFile room_image;
 	private String file_name;
 	private String directory_name;
+	private String email;
+	
+	public void setRoom_image_res() {
+		this.room_image_res = "http://" + FileManagement.getStorage_server_end_point() + "/roomfinderFiles/" + this.email + "/" + this.directory_name + "/" + this.file_name;
+	}
 }

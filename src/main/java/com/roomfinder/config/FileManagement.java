@@ -12,6 +12,9 @@ public class FileManagement {
 	@Value("${storage_server_end_point}")
     private static String storage_server_end_point;
 	
+	@Value("${resource_directory_path}")
+	private static String resource_directory_path;
+	
 	@Value("${storage_server_end_point}")
 	public void setStorage_server_ip(String storage_server_ip) {
 		this.storage_server_end_point = storage_server_ip;
@@ -19,6 +22,15 @@ public class FileManagement {
 	
 	public static String getStorage_server_end_point() {
 		return storage_server_end_point;
+	}
+
+	public static String getResource_directory_path() {
+		return resource_directory_path;
+	}
+	
+	@Value("${resource_directory_path}")
+	public void setResource_directory_path(String resource_directory_path) {
+		FileManagement.resource_directory_path = resource_directory_path;
 	}
 
 	static public String uploadStoreRepresentingImage(MultipartFile file, String path, String store_email) throws Exception {

@@ -22,6 +22,6 @@ public @Data class StoreVO extends AccountVO {
 	private String representing_image_extension;
 	
 	public void setStore_representing_image_res() {
-		this.store_representing_image_res = "http://" + FileManagement.getStorage_server_end_point() + "/roomfinderFiles/" +this.getEmail() + "/store_representing_image" + this.getRepresenting_image_extension();
+		this.store_representing_image_res = "http://" + FileManagement.getStorage_server_end_point() + "/roomfinderFiles/" +this.email + "/store_representing_image" + this.representing_image_extension;
 	}
 }
