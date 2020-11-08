@@ -211,8 +211,8 @@ public class RoomController {
 	
 	/** 룸 대표 이미지 변경 */
 	@PatchMapping("/representingimage")
-	public void patchStoreRepresentingImage(HttpServletRequest request, HttpServletResponse response, @ModelAttribute @RequestBody RoomVO vo) {
-		System.out.println("patchStoreRepresentingImage 요청");
+	public void patchRoomRepresentingImage(HttpServletRequest request, HttpServletResponse response, @ModelAttribute @RequestBody RoomVO vo) {
+		System.out.println("patchRoomRepresentingImage 요청");
 		System.out.println(vo);
 		AccountVO account = (AccountVO)request.getAttribute("account");
 		// 룸 불러오기
