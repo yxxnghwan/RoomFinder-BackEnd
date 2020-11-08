@@ -5,6 +5,7 @@ import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -20,7 +21,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.roomfinder.config.FileManagement;
 import com.roomfinder.service.AccountService;
@@ -101,13 +104,35 @@ public class StoreController {
 		return storeService.getStoreList();
 	}
 	
-	/** 대표 이미지 추가  or 변경*/
+	/** 대표 이미지 변경*/
 	@PatchMapping("/representingimage")
-	public void putStoreRepresentingImage(HttpServletRequest request, HttpServletResponse response, @RequestBody StoreVO vo) {
-		System.out.println("putRepresentingImage 요청");
+	public void patchStoreRepresentingImage(HttpServletRequest request, HttpServletResponse response, @ModelAttribute @RequestBody StoreVO vo) {
+		System.out.println("patchRepresentingImage 요청");
 		System.out.println(vo);
 		AccountVO account = (AccountVO)request.getAttribute("account");
 		if(account.getEmail().equals(vo.getEmail())) { // 로그인 된 본인이면
+			// 매장 불러오기
+			StoreVO store = accountService.getStore(vo.getEmail());
+			
+			// 기존 이미지 삭제
+			String path = FileManagement.getResource_directory_path() + "/" + store.getEmail() + "/store_representing_image" + store.getRepresenting_image_extension();
+			FileManagement.deleteFile(path);
+			
+			// 새 이미지 추가
+			path = FileManagement.getResource_directory_path() + "/" + store.getEmail();
+			String newExtension = null;
+			try {
+				newExtension = FileManagement.uploadStoreRepresentingImage(vo.getStore_representing_image(), path, vo.getEmail());
+				System.out.println("새 이미지 업로드 성공");
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				response.setStatus(HttpStatus.BAD_REQUEST.value());
+				return;
+			}
+			
+			// DB 수정
+			vo.setRepresenting_image_extension(newExtension);
 			storeService.updateStoreRepresentingImage(vo);
 			response.setStatus(HttpStatus.OK.value());
 		} else {

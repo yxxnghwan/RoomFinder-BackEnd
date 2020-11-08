@@ -37,8 +37,7 @@
 			SET room_name = #{room_name},
 			price_per_hour = #{price_per_hour},
 			description = #{description},
-			capacity = #{capacity},
-			room_representing_image_res = #{room_representing_image_res}
+			capacity = #{capacity}
 			WHERE room_seq = #{room_seq}
 		</update>
 		

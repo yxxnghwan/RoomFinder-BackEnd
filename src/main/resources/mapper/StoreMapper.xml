@@ -47,7 +47,7 @@
 		
 		<update id="updateStoreRepresentingImage" parameterType="com.roomfinder.vo.StoreVO">
 			UPDATE STORE
-			SET store_representing_image_res = #{store_representing_image_res}
+			SET representing_image_extension = #{representing_image_extension}
 			WHERE email = #{email}
 		</update>
 		
@@ -57,8 +57,7 @@
 			address_line = #{address_line},
 			telephone = #{telephone},
 			operating_time = #{operating_time},
-			description = #{description},
-			store_representing_image_res = #{store_representing_image_res}
+			description = #{description}
 			WHERE email = #{email}
 		</update>
 		
