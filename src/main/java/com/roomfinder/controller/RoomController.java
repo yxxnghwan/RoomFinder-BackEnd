@@ -253,7 +253,13 @@ public class RoomController {
 		System.out.println(vo);
 		AccountVO account = (AccountVO)request.getAttribute("account");
 		if(account.getEmail().equals(vo.getStore_email())) { // 로그인 된 본인이면	
-			if(isDeletableRoom(vo.getRoom_seq())) {
+			if(isDeletableRoom(vo.getRoom_seq())) { // 현재시간 이후 예약정보가 없어야함
+				// 룸 디렉토리 삭제
+				RoomVO room = roomService.getRoom(vo.getRoom_seq());
+				String path = FileManagement.getResource_directory_path() + "/" + room.getStore_email() + "/" + room.getDirectory_name();
+				FileManagement.deleteDirectory(path);
+				
+				// DB삭제
 				roomService.deleteRoom(vo.getRoom_seq());
 				response.setStatus(HttpStatus.OK.value());
 			} else {
