@@ -20,6 +20,7 @@ public @Data class StoreVO extends AccountVO {
 	private MultipartFile store_representing_image;
 	private List<StoreImageVO> store_image_list;
 	private String representing_image_extension;
+	private int min_price;
 	
 	public void setStore_representing_image_res() {
 		this.store_representing_image_res = "http://" + FileManagement.getStorage_server_end_point() + "/roomfinderFiles/" +this.email + "/store_representing_image" + this.representing_image_extension;

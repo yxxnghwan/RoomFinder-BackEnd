@@ -10,7 +10,9 @@
 		</insert>
 		
 		<select id="getStoreList" resultType="com.roomfinder.vo.StoreVO">
-			SELECT * FROM STORE
+			SELECT STORE.*, min(ROOM.price_per_hour) as min_price FROM STORE, ROOM
+			WHERE STORE.email = ROOM.store_email
+			GROUP BY STORE.email
 		</select>
 		
 		<select id="getStoreImage" parameterType="int" resultType="com.roomfinder.vo.StoreImageVO">
@@ -18,31 +20,31 @@
 			WHERE store_image_seq = #{store_image_seq}
 		</select>
 		
-		<select id="getLocationSearchStoreList" parameterType="String" resultType="com.roomfinder.vo.StoreVO">
-			SELECT * FROM STORE
-			WHERE address_line like '%${search_keyword}%'
-		</select>
-		
 		<select id="getPriceSearchStoreList" parameterType="com.roomfinder.vo.SearchVO" resultType="com.roomfinder.vo.StoreVO">
-			SELECT STORE.* FROM STORE, ROOM
+			SELECT STORE.*, min(ROOM.price_per_hour) as min_price FROM STORE, ROOM
 			WHERE STORE.email = ROOM.store_email
-			AND ROOM.price_per_hour BETWEEN #{min_price} AND #{max_price}
-		</select>
-		
-		<select id="getStoreNameSearchStoreList" parameterType="String" resultType="com.roomfinder.vo.StoreVO">
-			SELECT * FROM STORE
-			WHERE store_name like '%${search_keyword}%'
+			GROUP BY STORE.email
+			HAVING (min_price BETWEEN #{min_price} AND #{max_price})
 		</select>
 		
 		<select id="getTotalSearchStoreList" parameterType="String" resultType="com.roomfinder.vo.StoreVO">
-			SELECT * FROM STORE
-			WHERE store_name like '%${search_keyword}%'
-			OR address_line like '%${search_keyword}%'
+			SELECT STORE.*, min(ROOM.price_per_hour) as min_price FROM STORE, ROOM
+			WHERE STORE.email = ROOM.store_email
+			GROUP BY STORE.email
+			HAVING (store_name like '%${search_keyword}%' OR address_line like '%${search_keyword}%')
 		</select>
 		
 		<select id="getStoreImageList" parameterType="String" resultType="com.roomfinder.vo.StoreImageVO">
 			SELECT * FROM STORE_IMAGE
 			WHERE store_email = #{store_email}
+		</select>
+		
+		<select id="getAndSearchStoreList" parameterType="com.roomfinder.vo.SearchVO" resultType="com.roomfinder.vo.StoreVO">
+			SELECT STORE.*, min(ROOM.price_per_hour) as min_price FROM STORE, ROOM
+			WHERE STORE.email = ROOM.store_email
+			GROUP BY STORE.email
+			HAVING (store_name like '%${search_keyword}%' OR address_line like '%${search_keyword}%')
+			AND (min_price BETWEEN #{min_price} AND #{max_price})
 		</select>
 		
 		<update id="updateStoreRepresentingImage" parameterType="com.roomfinder.vo.StoreVO">

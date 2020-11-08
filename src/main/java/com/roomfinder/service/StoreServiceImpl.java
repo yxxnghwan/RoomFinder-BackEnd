@@ -31,6 +31,9 @@ public class StoreServiceImpl implements StoreService {
 		Iterator<StoreVO> itr = storeList.iterator();
 		while(itr.hasNext()) {
 			StoreVO store = itr.next();
+			if(store == null) {
+				return null;
+			}
 			store.setStore_representing_image_res();
 		}
 		return storeList;
@@ -63,36 +66,15 @@ public class StoreServiceImpl implements StoreService {
 	}
 	
 	@Override
-	public List<StoreVO> getLocationSearchStoreList(String search_keyword) {
-		// TODO Auto-generated method stub
-		List<StoreVO> storeList = storeMapper.getLocationSearchStoreList(search_keyword);
-		Iterator<StoreVO> itr = storeList.iterator();
-		while(itr.hasNext()) {
-			StoreVO store = itr.next();
-			store.setStore_representing_image_res();
-		}
-		return storeList;
-	}
-	
-	@Override
 	public List<StoreVO> getPriceSearchStoreList(SearchVO vo) {
 		// TODO Auto-generated method stub
 		List<StoreVO> storeList = storeMapper.getPriceSearchStoreList(vo);
 		Iterator<StoreVO> itr = storeList.iterator();
 		while(itr.hasNext()) {
 			StoreVO store = itr.next();
-			store.setStore_representing_image_res();
-		}
-		return storeList;
-	}
-	
-	@Override
-	public List<StoreVO> getStoreNameSearchStoreList(String search_keyword) {
-		// TODO Auto-generated method stub
-		List<StoreVO> storeList = storeMapper.getStoreNameSearchStoreList(search_keyword);
-		Iterator<StoreVO> itr = storeList.iterator();
-		while(itr.hasNext()) {
-			StoreVO store = itr.next();
+			if(store == null) {
+				return null;
+			}
 			store.setStore_representing_image_res();
 		}
 		return storeList;
@@ -105,6 +87,9 @@ public class StoreServiceImpl implements StoreService {
 		Iterator<StoreVO> itr = storeList.iterator();
 		while(itr.hasNext()) {
 			StoreVO store = itr.next();
+			if(store == null) {
+				return null;
+			}
 			store.setStore_representing_image_res();
 		}
 		return storeList;
@@ -123,8 +108,26 @@ public class StoreServiceImpl implements StoreService {
 		Iterator<StoreImageVO> itr = storeImageList.iterator();
 		while(itr.hasNext()) {
 			StoreImageVO storeImage = itr.next();
+			if(storeImage == null) {
+				return null;
+			}
 			storeImage.setStore_image_res();
 		}
 		return storeImageList;
+	}
+	
+	@Override
+	public List<StoreVO> getAndSearchStoreList(SearchVO vo) {
+		// TODO Auto-generated method stub
+		List<StoreVO> storeList = storeMapper.getAndSearchStoreList(vo);
+		Iterator<StoreVO> itr = storeList.iterator();
+		while(itr.hasNext()) {
+			StoreVO store = itr.next();
+			if(store == null) {
+				return null;
+			}
+			store.setStore_representing_image_res();
+		}
+		return storeList;
 	}
 }

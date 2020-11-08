@@ -155,14 +155,6 @@ public class StoreController {
 		return storeService.getStoreImageList(store_email);
 	}
 	
-	/** 지역별 매장 검색 */
-	@GetMapping("/location/{search_keyword}")
-	public List<StoreVO> getLocationSearchStoreList(HttpServletRequest request, HttpServletResponse response, @PathVariable String search_keyword) {
-		System.out.println("getLocationSearchStoreList 요청");
-		return storeService.getLocationSearchStoreList(search_keyword);
-		
-	}
-	
 	/** 가격별 매장 검색 */
 	@GetMapping("/price/{min_price}/{max_price}")
 	public List<StoreVO> getPriceSearchStoreList(HttpServletRequest request, HttpServletResponse response, @PathVariable int min_price, @PathVariable int max_price) {
@@ -173,18 +165,22 @@ public class StoreController {
 		return storeService.getPriceSearchStoreList(vo);
 	}
 	
-	/** 매장 이름 검색 */
-	@GetMapping("/name/{search_keyword}")
-	public List<StoreVO> getStoreNameSearchStoreList(HttpServletRequest request, HttpServletResponse response, @PathVariable String search_keyword) {
-		System.out.println("getStoreNameSearchStoreList 요청");
-		return storeService.getStoreNameSearchStoreList(search_keyword);
-	}
-	
 	/** 지역이름 또는 매장이름 검색 */
 	@GetMapping("/totalsearch/{search_keyword}")
 	public List<StoreVO> getTotalSearchStoreList(HttpServletRequest request, HttpServletResponse response, @PathVariable String search_keyword) {
 		System.out.println("getTotalSearchStoreList 요청");
 		return storeService.getTotalSearchStoreList(search_keyword);
+	}
+	
+	/** 가격 토탈 둘 다 충족 검색 */
+	@GetMapping("/andsearch/{search_keyword}/{min_price}/{max_price}")
+	public List<StoreVO> getAndSearchStoreList(HttpServletRequest request, HttpServletResponse response, @PathVariable("search_keyword") String search_keyword, @PathVariable("min_price") int min_price, @PathVariable("max_price") int max_price) {
+		System.out.println("getAndSearchStoreList 요청");
+		SearchVO vo = new SearchVO();
+		vo.setSearch_keyword(search_keyword);
+		vo.setMin_price(min_price);
+		vo.setMax_price(max_price);
+		return storeService.getAndSearchStoreList(vo);
 	}
 	
 	/** 매장 전체정보 수정 */

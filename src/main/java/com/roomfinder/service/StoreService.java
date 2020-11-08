@@ -13,11 +13,10 @@ public interface StoreService {
 	//R
 	public List<StoreVO> getStoreList();
 	public StoreImageVO getStoreImage(int store_image_seq);
-	public List<StoreVO> getLocationSearchStoreList(String search_keyword);
 	public List<StoreVO> getPriceSearchStoreList(SearchVO vo);
-	public List<StoreVO> getStoreNameSearchStoreList(String search_keyword);
 	public List<StoreVO> getTotalSearchStoreList(String search_keyword);
 	public List<StoreImageVO> getStoreImageList(String store_email);
+	public List<StoreVO> getAndSearchStoreList(SearchVO vo);
 	//U
 	public void updateStoreRepresentingImage(StoreVO vo);
 	public void updateStore(StoreVO vo);

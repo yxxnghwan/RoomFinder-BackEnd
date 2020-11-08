@@ -43,6 +43,9 @@ public class RoomServiceImpl implements RoomService{
 		Iterator<RoomVO> itr = roomList.iterator();
 		while(itr.hasNext()) {
 			RoomVO room = itr.next();
+			if(room == null) {
+				return null;
+			}
 			room.setRoom_representing_image_res();
 		}
 		return roomList;
@@ -61,6 +64,9 @@ public class RoomServiceImpl implements RoomService{
 		Iterator<RoomImageVO> itr = roomImageList.iterator();
 		while(itr.hasNext()) {
 			RoomImageVO roomImage = itr.next();
+			if(roomImage == null) {
+				return null;
+			}
 			roomImage.setRoom_image_res();
 		}
 		return roomImageList;
