@@ -41,6 +41,12 @@
 			WHERE room_seq = #{room_seq}
 		</update>
 		
+		<update id="updateRoomRepresentingImage" parameterType="com.roomfinder.vo.RoomVO">
+			UPDATE ROOM
+			SET directory_name = #{directory_name},
+			representing_image_extension = #{representing_image_extension}
+		</update>
+		
 		<delete id="deleteRoomImage" parameterType="int">
 			DELETE FROM ROOM_IMAGE
 			WHERE room_image_seq = #{room_image_seq}

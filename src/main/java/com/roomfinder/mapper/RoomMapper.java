@@ -18,6 +18,7 @@ public interface RoomMapper {
 	public List<RoomImageVO> getRoomImageList(int room_seq);
 	//U
 	public void updateRoom(RoomVO vo);
+	public void updateRoomRepresentingImage(RoomVO vo);
 	//D
 	public void deleteRoomImage(int room_image_seq);
 	public void deleteRoom(int room_seq);

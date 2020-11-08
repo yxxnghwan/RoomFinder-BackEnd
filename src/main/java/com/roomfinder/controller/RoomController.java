@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -25,6 +26,7 @@ import com.roomfinder.service.RoomService;
 import com.roomfinder.vo.AccountVO;
 import com.roomfinder.vo.RoomImageVO;
 import com.roomfinder.vo.RoomVO;
+import com.roomfinder.vo.StoreVO;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -200,6 +202,43 @@ public class RoomController {
 		AccountVO account = (AccountVO)request.getAttribute("account");
 		if(account.getEmail().equals(vo.getStore_email())) { // 로그인 된 본인이면	
 			roomService.updateRoom(vo);
+			response.setStatus(HttpStatus.OK.value());
+		} else {
+			System.out.println("본인만 스터디룸 정보수정 가능");
+			response.setStatus(HttpStatus.UNAUTHORIZED.value());
+		}
+	}
+	
+	/** 룸 대표 이미지 변경 */
+	@PatchMapping("/representingimage")
+	public void patchStoreRepresentingImage(HttpServletRequest request, HttpServletResponse response, @ModelAttribute @RequestBody RoomVO vo) {
+		System.out.println("patchStoreRepresentingImage 요청");
+		System.out.println(vo);
+		AccountVO account = (AccountVO)request.getAttribute("account");
+		// 룸 불러오기
+		RoomVO room = roomService.getRoom(vo.getRoom_seq());
+		if(account.getEmail().equals(room.getStore_email())) { // 로그인 된 본인이면	
+			
+			//기존 이미지 삭제
+			String path = FileManagement.getResource_directory_path() + "/" + room.getStore_email() + "/" + room.getDirectory_name() + "/room_representing_image" + room.getRepresenting_image_extension();
+			FileManagement.deleteFile(path);
+			
+			// 새 이미지 추가
+			path = FileManagement.getResource_directory_path() + "/" + room.getStore_email() + "/" + room.getDirectory_name();
+			String newExtension = null;
+			try {
+				newExtension = FileManagement.uploadRoomRepresentingImage(vo.getRoom_representing_image(), path, room.getStore_email(), room.getDirectory_name());
+				System.out.println("새 이미지 업로드 성공");
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				response.setStatus(HttpStatus.BAD_REQUEST.value());
+				return;
+			}
+			
+			//DB수정
+			vo.setRepresenting_image_extension(newExtension);
+			roomService.updateRoomRepresentingImage(vo);
 			response.setStatus(HttpStatus.OK.value());
 		} else {
 			System.out.println("본인만 스터디룸 정보수정 가능");
