@@ -219,8 +219,17 @@ public class StoreController {
 		AccountVO account = (AccountVO)request.getAttribute("account");
 		StoreImageVO image = storeService.getStoreImage(vo.getStore_image_seq());
 		if(account.getEmail().equals(image.getStore_email())) { // 로그인 된 본인이면	
+			// 해당 레코드 불러오기
+			StoreImageVO storeImage = storeService.getStoreImage(vo.getStore_image_seq());
+			
+			// 이미지 삭제
+			String path = FileManagement.getResource_directory_path() + "/" + storeImage.getStore_email() + "/" + storeImage.getFile_name();
+			FileManagement.deleteFile(path);
+			
+			//DB삭제
 			storeService.deleteStoreImage(vo);
 			response.setStatus(HttpStatus.OK.value());
+			
 		} else {
 			System.out.println("본인만 매장 이미지 삭제 가능");
 			response.setStatus(HttpStatus.UNAUTHORIZED.value());
