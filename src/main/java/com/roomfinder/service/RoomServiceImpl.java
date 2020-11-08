@@ -83,4 +83,10 @@ public class RoomServiceImpl implements RoomService{
 		// TODO Auto-generated method stub
 		roomMapper.updateRoomRepresentingImage(vo);
 	}
+	
+	@Override
+	public RoomImageVO getRoomImage(int room_image_seq) {
+		// TODO Auto-generated method stub
+		return roomMapper.getRoomImage(room_image_seq);
+	}
 }

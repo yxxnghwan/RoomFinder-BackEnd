@@ -11,6 +11,7 @@ public interface RoomService {
 	public void insertRoomImage(RoomImageVO vo);
 	//R
 	public RoomVO getRoom(int room_seq);
+	public RoomImageVO getRoomImage(int room_image_seq);
 	public List<RoomVO> getRoomList(String store_email);
 	public List<RoomImageVO> getRoomImageList(int room_seq);
 	//U

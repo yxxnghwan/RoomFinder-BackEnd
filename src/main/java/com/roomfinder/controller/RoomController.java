@@ -183,11 +183,15 @@ public class RoomController {
 		System.out.println("deleteRoomImage 요청");
 		System.out.println(vo);
 		AccountVO account = (AccountVO)request.getAttribute("account");
-		RoomVO room = roomService.getRoom(vo.getRoom_seq());
-		if(account.getEmail().equals(room.getStore_email())) { // 로그인 된 본인이면	
+		RoomImageVO roomImage = roomService.getRoomImage(vo.getRoom_image_seq());
+		if(account.getEmail().equals(roomImage.getEmail())) { // 로그인 된 본인이면
+			// 이미지 파일 삭제
+			String path = FileManagement.getResource_directory_path() + "/" + roomImage.getEmail() + "/" + roomImage.getDirectory_name() + "/" + roomImage.getFile_name();
+			FileManagement.deleteFile(path);
+			
+			// DB삭제
 			roomService.deleteRoomImage(vo.getRoom_image_seq());
 			response.setStatus(HttpStatus.OK.value());
-			
 		} else {
 			System.out.println("본인만 스터디룸 이미지 등록 가능");
 			response.setStatus(HttpStatus.UNAUTHORIZED.value());
