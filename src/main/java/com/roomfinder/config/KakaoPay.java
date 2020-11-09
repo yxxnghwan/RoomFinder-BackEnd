@@ -38,7 +38,7 @@ public class KakaoPay {
         KakaoPayReadyVO responseVO;
         // 서버로 요청할 Header
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Authorization", "KakaoAK " + "admin key를 넣어주세요~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~!");
+        headers.add("Authorization", "KakaoAK " + kakao_api_key);
         headers.add("Accept", "application/json;charset=UTF-8");
         headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE + ";charset=UTF-8");
         

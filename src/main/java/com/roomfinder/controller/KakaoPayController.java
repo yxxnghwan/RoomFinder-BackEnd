@@ -50,6 +50,7 @@ public class KakaoPayController {
     @PostMapping("/ready")
     public String kakaoPayReady(HttpServletRequest request, HttpServletResponse response, @RequestBody KakaoPayReadyVO vo) { // 파라미터로 KakaoPayReadyVO 를 받아오고 url을 응답해줄거니까 RestController로 바꾸자
         System.out.println("kakaoPayReady 요청");
+        System.out.println(vo);
         AccountVO account = (AccountVO)request.getAttribute("account");
 		if(account.getEmail().equals(vo.getPartner_user_id())) { // 로그인 된 본인이면
 			// api 요청

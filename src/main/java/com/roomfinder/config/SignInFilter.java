@@ -49,7 +49,8 @@ public class SignInFilter implements Filter{
 		allowedToSignInAPIs.add(new APIClass("/api/reservation", "DELETE"));
 		allowedToSignInAPIs.add(new APIClass("/api/accounts/me", "GET"));
 		allowedToSignInAPIs.add(new APIClass("/api/room/representingimage", "PATCH"));
-
+		allowedToSignInAPIs.add(new APIClass("/api/kakaopay/ready", "POST"));
+		
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) res;
 		
