@@ -5,8 +5,8 @@
 	
 	<mapper namespace="com.roomfinder.mapper.PaymentMapper">
 		<insert id="insertPayment" parameterType="com.roomfinder.vo.PaymentVO">
-			INSERT INTO PAYMENT(reservation_seq, total_price, payment_company_pay_id)
-			VALUES(#{reservation_seq}, #{total_price}, #{payment_company_pay_id})
+			INSERT INTO PAYMENT(reservation_seq, total_price, payment_company_pay_id, payment_method)
+			VALUES(#{reservation_seq}, #{total_price}, #{payment_company_pay_id}, 'yet')
 		</insert>
 		
 		<select id="getPayment" parameterType="int" resultType="com.roomfinder.vo.PaymentVO">
