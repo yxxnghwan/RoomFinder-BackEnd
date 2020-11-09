@@ -102,7 +102,7 @@ public class KakaoPayController {
         // 추가해논 db 업뎃
         payment.setPayment_method("kakaopay_"+approvalVO.getPayment_method_type());
         paymentService.updatePaymentMethod(payment);
-        return "결제성공 팝업을 닫아주세요";
+        return "success";
     }
     
     @GetMapping("/cancel/{reservation_seq}")
@@ -111,7 +111,7 @@ public class KakaoPayController {
     	System.out.println("취소했으니까 예약정보 지울거임");
     	reservationService.deleteReservation(reservation_seq);
     	paymentService.deletePayment(reservation_seq);
-    	return "결제 취소";
+    	return "cancel";
     }
     
     @GetMapping("/fail/{reservation_seq}")
@@ -120,6 +120,6 @@ public class KakaoPayController {
     	System.out.println("실패했으니까 예약정보 지울거임");
     	reservationService.deleteReservation(reservation_seq);
     	paymentService.deletePayment(reservation_seq);
-    	return "결제 실패";
+    	return "fail";
     }
 }

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.roomfinder.service.PaymentService;
 import com.roomfinder.service.ReservationService;
 import com.roomfinder.vo.AccountVO;
 import com.roomfinder.vo.ReservationVO;
@@ -27,6 +28,43 @@ public class ReservationController {
 	
 	@Autowired
 	ReservationService reservationService;
+	
+	@Autowired
+	PaymentService paymentService;
+	
+	class DeleteUnpaidReservationThread implements Runnable {
+		
+		int reservation_seq;
+		
+		public DeleteUnpaidReservationThread(int reservation_seq) {
+			// TODO Auto-generated constructor stub
+			this.reservation_seq = reservation_seq;
+		}
+		
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			try {
+				Thread.sleep(1000*60*16);// 16분 뒤에
+				System.out.println(reservation_seq + "번 예약 결제 체크");
+				reservationService.deleteUnpaidReservation(reservation_seq); // 15분째 결제 안하는 친구 삭제
+				
+				// 결제팝업이 생기지도 않은 경우
+				if(paymentService.getPayment(reservation_seq) == null) {
+					reservationService.deleteReservation(reservation_seq);
+					System.out.println("결제팝업이 생기기 전에 창을 닫아서 예약정보만 들어가고 결제팝업이 안열렸네 그래서 이친구 삭제");
+				}
+				
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	
+	
+	
 	
 	private boolean isInsertableReservation(ReservationVO vo) {
 		int insertableInt = reservationService.getInsertableCheck(vo);
@@ -40,6 +78,11 @@ public class ReservationController {
 		return true;
 	}
 	
+	
+	
+	
+	
+	
 	/** 예약정보 추가 */
 	@PostMapping // 여기서 getReservationSeq쿼리문 만들어서 seq값을 리턴해주자! 그럼 결제 요청할 때 같이 넣어서 주는거지!
 	public int insertReservation(HttpServletRequest request, HttpServletResponse response, @RequestBody ReservationVO vo) {
@@ -49,8 +92,13 @@ public class ReservationController {
 		if(account.getEmail().equals(vo.getUser_email())) { // 로그인 된 본인이면
 			if(isInsertableReservation(vo)) {
 				reservationService.insertReservation(vo);
+				
+				int reservation_seq = reservationService.getReservationSeq(vo);
+				DeleteUnpaidReservationThread deleteUnpaidReservationThread = new DeleteUnpaidReservationThread(reservation_seq);
+				Thread thread = new Thread(deleteUnpaidReservationThread, "노결제 예약 삭제 쓰레드");
+				thread.start();
 				response.setStatus(HttpStatus.CREATED.value());
-				return reservationService.getReservationSeq(vo);
+				return reservation_seq;
 			} else {
 				response.setStatus(HttpStatus.CONFLICT.value());
 			}

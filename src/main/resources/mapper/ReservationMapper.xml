@@ -5,8 +5,8 @@
 	
 	<mapper namespace="com.roomfinder.mapper.ReservationMapper">
 		<insert id="insertReservation" parameterType="com.roomfinder.vo.ReservationVO">
-			INSERT INTO RESERVATION(start_time, end_time, user_email, room_seq)
-			VALUES(#{start_time}, #{end_time}, #{user_email}, #{room_seq})
+			INSERT INTO RESERVATION(start_time, end_time, user_email, room_seq, inserted_time)
+			VALUES(#{start_time}, #{end_time}, #{user_email}, #{room_seq}, now())
 		</insert>
 		
 		<select id="getMyReservation" parameterType="String" resultType="com.roomfinder.vo.ReservationVO">
@@ -18,6 +18,8 @@
 			<![CDATA[
 			SELECT COUNT(*) FROM RESERVATION
 			WHERE (start_time < #{end_time} and end_time > #{end_time}) or (end_time > #{start_time} and start_time < #{start_time})
+			OR start_time = #{start_time}
+			OR end_time = #{end_time}
 			]]>
 		</select>
 		
@@ -49,7 +51,7 @@
 		</select>
 		
 		<select id="getReservationSeq" parameterType="com.roomfinder.vo.ReservationVO" resultType="int">
-			SELECT reservation_seq FROM RESERVATION
+			SELECT max(reservation_seq) FROM RESERVATION
 			WHERE user_email = #{user_email}
 			AND room_seq = #{room_seq}
 			AND start_time = #{start_time}
@@ -63,6 +65,17 @@
 		<delete id="deleteReservation" parameterType="int">
 			DELETE FROM RESERVATION
 			WHERE reservation_seq = #{reservation_seq}
+		</delete>
+		
+		<delete id="deleteUnpaidReservation" parameterType="int">
+			<![CDATA[
+			DELETE t_reservation, t_payment
+			FROM RESERVATION t_reservation INNER JOIN PAYMENT t_payment
+			WHERE t_reservation.reservation_seq = t_payment.reservation_seq
+			AND t_payment.payment_method = 'yet'
+			AND t_reservation.inserted_time < DATE_SUB(now(), INTERVAL 15 MINUTE)
+			AND t_reservation.reservation_seq = #{reservation_seq}
+			]]>
 		</delete>
 		
 	</mapper>

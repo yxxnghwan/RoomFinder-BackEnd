@@ -74,4 +74,10 @@ public class ReservationServiceImpl implements ReservationService{
 		// TODO Auto-generated method stub
 		return reservationMapper.getReservation(reservation_seq);
 	}
+	
+	@Override
+	public void deleteUnpaidReservation(int reservation_seq) {
+		// TODO Auto-generated method stub
+		reservationMapper.deleteUnpaidReservation(reservation_seq);
+	}
 }
