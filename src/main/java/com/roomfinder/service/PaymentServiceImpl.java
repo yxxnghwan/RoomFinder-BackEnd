@@ -19,9 +19,9 @@ public class PaymentServiceImpl implements PaymentService {
 	}
 	
 	@Override
-	public PaymentVO getPayment(int payment_seq) {
+	public PaymentVO getPayment(int reservation_seq) {
 		// TODO Auto-generated method stub
-		return paymentMapper.getPayment(payment_seq);
+		return paymentMapper.getPayment(reservation_seq);
 	}
 	
 	@Override
@@ -31,9 +31,9 @@ public class PaymentServiceImpl implements PaymentService {
 	}
 	
 	@Override
-	public void deletePayment(int payment_seq) {
+	public void deletePayment(int reservation_seq) {
 		// TODO Auto-generated method stub
-		paymentMapper.deletePayment(payment_seq);
+		paymentMapper.deletePayment(reservation_seq);
 	}
 	
 }

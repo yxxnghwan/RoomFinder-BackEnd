@@ -9,4 +9,19 @@
 			VALUES(#{reservation_seq}, #{total_price}, #{payment_company_pay_id})
 		</insert>
 		
+		<select id="getPayment" parameterType="int" resultType="com.roomfinder.vo.PaymentVO">
+			SELECT * FROM PAYMENT
+			WHERE reservation_seq = #{reservation_seq}
+		</select>
+		
+		<update id="updatePaymentMethod" parameterType="com.roomfinder.vo.PaymentVO">
+			UPDATE PAYMENT
+			SET payment_method = #{payment_method}
+			WHERE reservation_seq = #{reservation_seq}
+		</update>
+		
+		<delete id="deletePayment" parameterType="int">
+			DELETE FROM PAYMENT
+			WHERE reservation_seq = #{reservation_seq}
+		</delete>
 	</mapper>

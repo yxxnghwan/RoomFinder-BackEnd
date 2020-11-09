@@ -9,9 +9,9 @@ public interface PaymentMapper {
 	//C
 	public void insertPayment(PaymentVO vo);
 	//R
-	public PaymentVO getPayment(int payment_seq);
+	public PaymentVO getPayment(int reservation_seq);
 	//U
 	public void updatePaymentMethod(PaymentVO vo);
 	//D
-	public void deletePayment(int payment_seq);
+	public void deletePayment(int reservation_seq);
 }

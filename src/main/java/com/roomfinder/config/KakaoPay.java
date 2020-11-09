@@ -15,8 +15,10 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
+import com.roomfinder.service.PaymentService;
 import com.roomfinder.vo.KakaoPayApprovalVO;
 import com.roomfinder.vo.KakaoPayReadyVO;
+import com.roomfinder.vo.PaymentVO;
 
 import lombok.extern.java.Log;
 
@@ -31,10 +33,7 @@ public class KakaoPay {
     @Value("${this_server_end_point}")
     private String this_server_end_point;
     
-    @Autowired
-    Paymen
-    
-    public String kakaoPayReady(KakaoPayReadyVO requestVO) {
+    public KakaoPayReadyVO kakaoPayReady(KakaoPayReadyVO requestVO) {
         RestTemplate restTemplate = new RestTemplate();
         KakaoPayReadyVO responseVO;
         // 서버로 요청할 Header
@@ -62,9 +61,7 @@ public class KakaoPay {
         	responseVO = restTemplate.postForObject(new URI(HOST + "/v1/payment/ready"), body, KakaoPayReadyVO.class);
            
             log.info("" + responseVO);
-            // 여기서 payment 정보 저장 해야하나..? 그렇대
-            
-            return responseVO.getNext_redirect_pc_url();
+            return responseVO;
  
         } catch (RestClientException e) {
             // TODO Auto-generated catch block
@@ -74,7 +71,7 @@ public class KakaoPay {
             e.printStackTrace();
         }
         
-        return requestVO.getCancel_url();
+        return null;
         
     }
     
