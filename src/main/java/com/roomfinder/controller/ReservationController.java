@@ -41,8 +41,8 @@ public class ReservationController {
 	}
 	
 	/** 예약정보 추가 */
-	@PostMapping
-	public void insertReservation(HttpServletRequest request, HttpServletResponse response, @RequestBody ReservationVO vo) {
+	@PostMapping // 여기서 getReservationSeq쿼리문 만들어서 seq값을 리턴해주자! 그럼 결제 요청할 때 같이 넣어서 주는거지!
+	public int insertReservation(HttpServletRequest request, HttpServletResponse response, @RequestBody ReservationVO vo) {
 		System.out.println("insertReservation 요청");
 		System.out.println(vo);
 		AccountVO account = (AccountVO)request.getAttribute("account");
@@ -50,6 +50,7 @@ public class ReservationController {
 			if(isInsertableReservation(vo)) {
 				reservationService.insertReservation(vo);
 				response.setStatus(HttpStatus.CREATED.value());
+				return reservationService.getReservationSeq(vo);
 			} else {
 				response.setStatus(HttpStatus.CONFLICT.value());
 			}
@@ -57,6 +58,7 @@ public class ReservationController {
 			System.out.println("본인만 예약 가능");
 			response.setStatus(HttpStatus.UNAUTHORIZED.value());
 		}
+		return 0;
 	}
 	
 	/** 나의 예약정보 */
@@ -91,12 +93,13 @@ public class ReservationController {
 		return reservationService.getRoomAfterNowReservationList(room_seq);
 	}
 	
+	/** 예약 삭제  */
 	@DeleteMapping
 	public void deleteReservation(HttpServletRequest request, HttpServletResponse response, @RequestBody ReservationVO vo) {
 		System.out.println("deleteReservation 요청");
 		AccountVO account = (AccountVO)request.getAttribute("account");
 		if(account.getEmail().equals(vo.getUser_email())) { // 로그인 된 본인이면
-			reservationService.deleteReservation(vo);
+			reservationService.deleteReservation(vo.getReservation_seq());
 			response.setStatus(HttpStatus.OK.value());
 		} else {
 			System.out.println("본인만 삭제 가능");

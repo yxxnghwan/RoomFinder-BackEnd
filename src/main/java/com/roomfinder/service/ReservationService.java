@@ -16,8 +16,10 @@ public interface ReservationService {
 	public List<ReservationVO> getRoomDateReservationList(ReservationVO vo);
 	public List<ReservationVO> getRoomAfterNowReservationList(int room_seq);
 	public int getAfterNowReservationCount(int room_seq);
+	public int getReservationSeq(ReservationVO vo);
+	public ReservationVO getReservation(int reservation_seq);
 	//U
 		
 	//D
-	public void deleteReservation(ReservationVO vo);
+	public void deleteReservation(int reservation_seq);
 }

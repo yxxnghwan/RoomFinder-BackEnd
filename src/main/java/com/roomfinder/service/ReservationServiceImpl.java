@@ -58,8 +58,20 @@ public class ReservationServiceImpl implements ReservationService{
 	}
 	
 	@Override
-	public void deleteReservation(ReservationVO vo) {
+	public void deleteReservation(int reservation_seq) {
 		// TODO Auto-generated method stub
-		reservationMapper.deleteReservation(vo);
+		reservationMapper.deleteReservation(reservation_seq);
+	}
+	
+	@Override
+	public int getReservationSeq(ReservationVO vo) {
+		// TODO Auto-generated method stub
+		return reservationMapper.getReservationSeq(vo);
+	}
+	
+	@Override
+	public ReservationVO getReservation(int reservation_seq) {
+		// TODO Auto-generated method stub
+		return reservationMapper.getReservation(reservation_seq);
 	}
 }

@@ -48,7 +48,19 @@
 			]]>
 		</select>
 		
-		<delete id="deleteReservation" parameterType="com.roomfinder.vo.ReservationVO">
+		<select id="getReservationSeq" parameterType="com.roomfinder.vo.ReservationVO" resultType="int">
+			SELECT reservation_seq FROM RESERVATION
+			WHERE user_email = #{user_email}
+			AND room_seq = #{room_seq}
+			AND start_time = #{start_time}
+		</select>
+		
+		<select id="getReservation" parameterType="int" resultType="com.roomfinder.vo.ReservationVO">
+			SELECT * FROM RESERVATION
+			WHERE reservation_seq = #{reservation_seq}
+		</select>
+		
+		<delete id="deleteReservation" parameterType="int">
 			DELETE FROM RESERVATION
 			WHERE reservation_seq = #{reservation_seq}
 		</delete>
