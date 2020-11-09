@@ -52,8 +52,8 @@ public class KakaoPay {
         params.add("total_amount", requestVO.getTotal_amount());
         params.add("tax_free_amount", "0"); // 이 서비스는 면세 ㄴㄴ
         params.add("approval_url", "http://" + this_server_end_point + "/api/kakaopay/success/" + requestVO.getReservation_seq());
-        params.add("cancel_url", requestVO.getCancel_url());
-        params.add("fail_url", requestVO.getFail_url());
+        params.add("cancel_url", "http://" + this_server_end_point + "/api/kakaopay/cancel/" + requestVO.getReservation_seq());
+        params.add("fail_url", "http://" + this_server_end_point + "/api/kakaopay/fail/" + requestVO.getReservation_seq());
  
         HttpEntity<MultiValueMap<String, Object>> body = new HttpEntity<MultiValueMap<String, Object>>(params, headers);
  

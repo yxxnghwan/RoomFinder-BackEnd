@@ -11,7 +11,6 @@ public @Data class KakaoPayReadyVO {
 	//request
 	String cid, partner_order_id, partner_user_id, item_name;
 	Integer total_amount;
-	String approval_url, cancel_url, fail_url;
 	
 	
 	//response

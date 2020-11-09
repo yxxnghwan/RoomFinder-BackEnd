@@ -67,6 +67,7 @@ public class KakaoPayController {
 				// TODO: handle exception
             	System.out.println("예약은 추가됐는데 결제 넣다 에러남");
             	reservationService.deleteReservation(vo.getReservation_seq());
+            	response.setStatus(HttpStatus.BAD_REQUEST.value());
 			}
             
 		} else {
@@ -79,7 +80,7 @@ public class KakaoPayController {
     }
     
     @GetMapping("/success/{reservation_seq}")
-    public void kakaoPaySuccess(@RequestParam("pg_token") String pg_token, @PathVariable int reservation_seq, @PathVariable String tid) {
+    public void kakaoPaySuccess(@RequestParam("pg_token") String pg_token, @PathVariable int reservation_seq) {
     	System.out.println("kakaoPaySuccess");
     	System.out.println("kakaoPaySuccess pg_token : " + pg_token);
     	
@@ -96,6 +97,25 @@ public class KakaoPayController {
     	KakaoPayApprovalVO approvalVO = kakaopay.kakaoPayInfo(pg_token, readyVO);
     	
         System.out.println(approvalVO);
+        
         // 추가해논 db 업뎃
+        payment.setPayment_method(approvalVO.getPayment_method_type());
+        paymentService.updatePaymentMethod(payment);
+    }
+    
+    @GetMapping("/cancel/{reservation_seq}")
+    public void kakaoPayCancel(@PathVariable int reservation_seq) {
+    	System.out.println("kakaoPayCancel");
+    	System.out.println("취소했으니까 예약정보 지울거임");
+    	reservationService.deleteReservation(reservation_seq);
+    	paymentService.deletePayment(reservation_seq);
+    }
+    
+    @GetMapping("/fail/{reservation_seq}")
+    public void kakaoPayFail(@PathVariable int reservation_seq) {
+    	System.out.println("kakaoPayFail");
+    	System.out.println("실패했으니까 예약정보 지울거임");
+    	reservationService.deleteReservation(reservation_seq);
+    	paymentService.deletePayment(reservation_seq);
     }
 }
