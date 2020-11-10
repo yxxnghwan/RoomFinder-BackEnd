@@ -57,7 +57,7 @@ public class RoomController {
 			
 			// 룸 디렉토리 생성
 			String roomDirectory = "room_" + System.currentTimeMillis();
-			String path = FileManagement.getResource_directory_path() + "/" + vo.getStore_email() + "\\" + roomDirectory; //폴더 경로
+			String path = FileManagement.getResource_directory_path() + "/" + vo.getStore_email() + "/" + roomDirectory; //폴더 경로
 			File folder = new File(path);
 			String representing_image_extension = null;
 			// 해당 디렉토리가 없을경우 디렉토리를 생성합니다.
@@ -113,7 +113,7 @@ public class RoomController {
 		if(account.getEmail().equals(room.getStore_email())) { // 로그인 된 본인이면	
 			
 			// 룸 디렉토리 생성
-			String path = FileManagement.getResource_directory_path() + "/" + room.getStore_email() + "\\" + room.getDirectory_name(); //폴더 경로
+			String path = FileManagement.getResource_directory_path() + "/" + room.getStore_email() + "/" + room.getDirectory_name(); //폴더 경로
 			File folder = new File(path);
 			String file_name = null;
 			// 해당 디렉토리가 없을경우 디렉토리를 생성합니다.
