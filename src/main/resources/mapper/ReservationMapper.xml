@@ -86,4 +86,10 @@
 			]]>
 		</delete>
 		
+		<delete id="deleteAllUnpaidReservation">
+			DELETE t_reservation, t_payment FROM RESERVATION t_reservation
+			LEFT OUTER JOIN PAYMENT t_payment ON t_reservation.reservation_seq = t_payment.reservation_seq
+			WHERE t_payment.payment_method IS NULL OR t_payment.payment_method = 'yet'
+		</delete>
+		
 	</mapper>

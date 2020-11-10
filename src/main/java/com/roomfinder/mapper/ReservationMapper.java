@@ -26,4 +26,5 @@ public interface ReservationMapper {
 	//D
 	public void deleteReservation(int reservation_seq);
 	public void deleteUnpaidReservation(int reservation_seq);
+	public void deleteAllUnpaidReservation();
 }
