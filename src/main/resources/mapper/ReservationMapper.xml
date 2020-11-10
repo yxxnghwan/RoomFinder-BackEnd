@@ -10,8 +10,15 @@
 		</insert>
 		
 		<select id="getMyReservation" parameterType="String" resultType="com.roomfinder.vo.ReservationVO">
-			SELECT * FROM RESERVATION
-			WHERE user_email = #{user_email}
+			SELECT RESERVATION.*, STORE.store_name as store_name, 
+			ROOM.room_name as room_name, 
+			ROOM.representing_image_extension as representing_image_extension,
+			ROOM.directory_name as directory_name,
+			ROOM.store_email as store_email
+			FROM RESERVATION, ROOM, STORE
+			WHERE RESERVATION.room_seq = ROOM.room_seq
+			AND ROOM.store_email = STORE.email
+			AND user_email = #{user_email}
 		</select>
 		
 		<select id="getInsertableCheck" parameterType="com.roomfinder.vo.ReservationVO" resultType="int">
