@@ -47,7 +47,7 @@
 			AND (min_price BETWEEN #{min_price} AND #{max_price})
 		</select>
 		
-		<select id="getFlexibleSearchList" parameterType="com.roomfinder.vo.SearchVO" resultType="com.roomfinder.vo.StoreVO">
+		<select id="getFlexibleSearchStoreList" parameterType="com.roomfinder.vo.SearchVO" resultType="com.roomfinder.vo.StoreVO">
 			<![CDATA[
 			SELECT STORE.*, min(ROOM.price_per_hour) as min_price, 
 			RESERVATION.start_time as start_time, 
