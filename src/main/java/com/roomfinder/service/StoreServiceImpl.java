@@ -130,4 +130,19 @@ public class StoreServiceImpl implements StoreService {
 		}
 		return storeList;
 	}
+	
+	@Override
+	public List<StoreVO> getFlexibleSearchStoreList(SearchVO vo) {
+		// TODO Auto-generated method stub
+		List<StoreVO> storeList = storeMapper.getFlexibleSearchStoreList(vo);
+		Iterator<StoreVO> itr = storeList.iterator();
+		while(itr.hasNext()) {
+			StoreVO store = itr.next();
+			if(store == null) {
+				return null;
+			}
+			store.setStore_representing_image_res();
+		}
+		return storeList;
+	}
 }

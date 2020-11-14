@@ -183,6 +183,14 @@ public class StoreController {
 		return storeService.getAndSearchStoreList(vo);
 	}
 	
+	/** 모든 검색 요소별로 넣고싶은 것만 넣고 결과 얻을 수 있는 API */
+	@GetMapping("/flexiblesearch")
+	public List<StoreVO> getFlexibleSearchStoreList(HttpServletRequest request, HttpServletResponse response, @RequestBody SearchVO vo) {
+		System.out.println("getFlexibleSearchStoreList 요청");
+		vo.setStr_start_date_time();
+		return storeService.getFlexibleSearchStoreList(vo);
+	}
+	
 	/** 매장 전체정보 수정 */
 	@PutMapping
 	public void updateStore(HttpServletRequest request, HttpServletResponse response, @RequestBody StoreVO vo) {
