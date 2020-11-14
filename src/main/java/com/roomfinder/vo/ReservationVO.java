@@ -27,6 +27,7 @@ public @Data class ReservationVO {
 	private String directory_name;
 	private String store_email;
 	private int price_per_hour;
+	private int total_price;
 	
 	public void setRoom_representing_image_res() {
 		room_representing_image_res = "http://" + FileManagement.getStorage_server_end_point() + "/roomfinderFiles/" + this.store_email + "/" + this.directory_name + "/room_representing_image" + this.representing_image_extension;

@@ -15,10 +15,12 @@
 			ROOM.representing_image_extension as representing_image_extension,
 			ROOM.directory_name as directory_name,
 			ROOM.store_email as store_email,
-			ROOM.price_per_hour as price_per_hour
-			FROM RESERVATION, ROOM, STORE
+			ROOM.price_per_hour as price_per_hour,
+			PAYMENT.total_price as total_price
+			FROM RESERVATION, ROOM, STORE, PAYMENT
 			WHERE RESERVATION.room_seq = ROOM.room_seq
 			AND ROOM.store_email = STORE.email
+			AND PAYMENT.reservation_seq = RESERVATION.reservation_seq
 			AND user_email = #{user_email}
 		</select>
 		

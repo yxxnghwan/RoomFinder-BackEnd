@@ -10,8 +10,8 @@
 		</insert>
 		
 		<select id="getStoreList" resultType="com.roomfinder.vo.StoreVO">
-			SELECT STORE.*, min(ROOM.price_per_hour) as min_price FROM STORE, ROOM
-			WHERE STORE.email = ROOM.store_email
+			SELECT STORE.*, min(ROOM.price_per_hour) as min_price FROM STORE INNER JOIN ROOM
+			ON STORE.email = ROOM.store_email
 			GROUP BY STORE.email
 		</select>
 		
